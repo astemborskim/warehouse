@@ -1,0 +1,23 @@
+extends layout
+
+block navigation
+	div.navbar.navbar-default
+		ul.nav.nav-pills
+			li
+				a(href='/') Home
+			li.active
+				a(href='/search') Product Search
+			li#login
+				a(href="/login") Login
+block heading
+block content
+	div#productSearch.panel.panel-primary
+		h3.panel.panel-heading
+			| Product Search
+		div#searchForm.panel.panel-info
+			h4.panel.panel-heading
+				| Search by SKU or Product Name:
+			div#formContainer.container-fluid
+				iframe#prodSearch(height='500px' width='100%' name='formEmbed-Widget_Flat_File' frameborder='0' allowTransparency='true' scrolling='auto' src='https://creator.zoho.com/astemborskim/test/form-embed/Widget_Flat_File/')
+block footer	
+	p &copy Acme Warehouse Managment Systems 2015

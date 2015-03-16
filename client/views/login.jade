@@ -1,0 +1,22 @@
+extends layout
+
+block navigation
+	div.navbar.navbar-default
+		ul.nav.nav-pills
+			li
+				a(href='/') Home
+			li
+				a(href='/search') Product Search
+			li#login.active
+				a(href="/login") Login
+block heading
+	div.panel.panel-primary
+		h2.panel.panel-heading
+			| Authentication
+block content
+	div#searchForm.panel.panel-info
+		h3.panel.panel-heading
+			| User Login:
+		div.container-fluid
+block footer	
+	p &copy Acme Warehouse Managment Systems 2015

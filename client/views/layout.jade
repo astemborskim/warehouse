@@ -1,0 +1,16 @@
+docutype 
+	html(ng-app='myApp')
+		head
+			script( src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.js")
+			script( src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-resource.js")
+			script( text='text/javascript' src="/app.js")
+			link( rel="stylesheet" href="/css/style.css" type="text/css" media="Screen")
+			link( rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+			title Acme Warehouse - #{title}
+			block navigation
+		body.container-fluid
+			div
+				block heading
+				block content
+		footer
+			block footer

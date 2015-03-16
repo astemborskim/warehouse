@@ -1,0 +1,26 @@
+extends layout
+
+block navigation
+	div.navbar.navbar-default
+		ul.nav.nav-pills
+			li.active
+				a(href='/') Home
+			li
+				a(href='/search') Product Search
+			li#login
+				a(href="/login") Login
+block heading
+	div.panel.panel-primary
+		h2.panel.panel-heading
+			| Acme Warehouse Inventory Managment
+block content
+	p.panel.panel-content
+		| Managment Options:
+	div.panel.pandle-info(ng-controller = "indexController")
+		h3.panel.panel-heading Options:
+		ul.panel.panel-content
+			li(ng-repeat="animal in categories") {{animal.category}}
+block footer
+	p &copy Acme Warehouse Managment Systems 2015
+
+	script(text="text/javascript" src="/js/controllers/menu-controller.js")
