@@ -1,6 +1,6 @@
 var express = require('express'),
-	// mongodb	= require('mongodb'),
-	// mongoose = require('mongoose'),
+	mongoose = require('mongoose'),
+	dbConfig = require('./server/db/db.js'),
 	bodyparser = require('body-parser'),
 	stylus	= require('stylus'),
 	// multer = require('multer'),
@@ -9,29 +9,44 @@ var express = require('express'),
 	// serverController = require('./server/controllers/server-controller');
 
 var app = express();
+
 //DB connection
+mongoose.connect(dbConfig.url);
+
 // mongoose.connect('mongodb://localhost:27017/anidopt');
 
 //routes defined
 var routes = require('./client/js/routes/index');
-var search = require('./client/js/routes/search');
-var login = require('./client/js/routes/login');
-// var dogs = require('./client/js/routes/dogs');
-// var fish = require('./client/js/routes/fish');
-// var birds = require('./client/js/routes/birds');
-// var reptiles = require('./client/js/routes/reptiles');
-// var small_animals = require('./client/js/routes/small_animals');
-// var forum = require('./client/js/routes/forum');
-// var list = require('./client/js/routes/list');
 
 //View engine config
 app.set('views', __dirname + '/client/views');
 app.set('view engine', 'jade');
 
 app.use(bodyparser.json());
-//app.use(express.bodyparser());
 
 app.use(express.static(__dirname + '/client/'));
+
+//Configure Passport Authentication
+var passport = require('passport');
+//Session Handling
+var expressSession = require('express-session');
+app.use(expressSession({secret : 'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Using the flash middleware provided by connect-flash to store messages in session
+ // and displaying in templates
+var flash = require('connect-flash');
+app.use(flash());
+
+// Initialize Passport
+var initPassport = require('./server/passport/init');
+initPassport(passport);
+
+var routes = require('./client/js/routes/index')(passport);
+app.use('/', routes);
+
+
 // app.use('/image', express.static(__dirname));
 // app.use(stylus.middleware({
 // 	src: __dirname + '/css',
@@ -70,9 +85,9 @@ app.use(express.static(__dirname + '/client/'));
 // })
 
 //get route
-app.get('/', routes);
-app.get('/search', search);
-app.get('/login', login);
+// app.get('/', routes);
+// app.get('/search', search);
+// app.get('/login', login);
 // app.get('/dogs', dogs);
 // app.get('/fish', fish);
 // app.get('/birds', birds);

@@ -1,0 +1,21 @@
+extends layout
+
+block navigation
+	div.navbar.navbar-default
+		ul.nav.nav-pills
+			li.active
+				a(href='/home') Home
+			li
+				a(href='/search') Product Search
+block heading
+block content
+	div#productSearch.panel.panel-primary
+		h4.panel.panel-heading
+			| Home Page - Give this a Title
+		div#searchForm.panel.panel-info
+			h4.panel.panel-heading
+				| Show user Options:
+			div#formContainer.container-fluid
+				p Put some Content in here!
+block footer	
+	p &copy Acme Warehouse Managment Systems 2015
