@@ -43,11 +43,17 @@ module.exports = function(passport){
 		res.render('home', { user: req.user });
 	});
 
+	/* GET Search Page */
+	router.get('/search', isAuthenticated, function(req, res){
+		res.render('search', {message: req.flash('message')});
+	});
+
 	/* Handle Logout */
 	router.get('/signout', function(req, res) {
 		req.logout();
 		res.redirect('/');
 	});
+
 
 	return router;
 }

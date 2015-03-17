@@ -1,6 +1,6 @@
-var User = require('../models/user');
 var login = require('./login');
 var signup = require('./signup');
+var User = require('../models/user');
 
 //serialize and deserialize users - persistant login support
 module.exports = function (passport) {

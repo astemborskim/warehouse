@@ -2,6 +2,7 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	dbConfig = require('./server/db/db.js'),
 	bodyparser = require('body-parser'),
+	cookieParser = require('cookie-parser'),
 	stylus	= require('stylus'),
 	// multer = require('multer'),
 	// io = require('socket.io'),
@@ -15,15 +16,13 @@ mongoose.connect(dbConfig.url);
 
 // mongoose.connect('mongodb://localhost:27017/anidopt');
 
-//routes defined
-var routes = require('./client/js/routes/index');
-
 //View engine config
 app.set('views', __dirname + '/client/views');
 app.set('view engine', 'jade');
 
 app.use(bodyparser.json());
-
+app.use(bodyparser.urlencoded());
+app.use(cookieParser());
 app.use(express.static(__dirname + '/client/'));
 
 //Configure Passport Authentication
@@ -43,6 +42,7 @@ app.use(flash());
 var initPassport = require('./server/passport/init');
 initPassport(passport);
 
+//routes defined
 var routes = require('./client/js/routes/index')(passport);
 app.use('/', routes);
 
