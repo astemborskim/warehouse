@@ -45,7 +45,7 @@ module.exports = function(passport){
 
 	/* GET Search Page */
 	router.get('/search', isAuthenticated, function(req, res){
-		res.render('search', {message: req.flash('message')});
+		res.render('search', { tab : true}, {message: req.flash('message')});
 	});
 
 	/* Handle Logout */

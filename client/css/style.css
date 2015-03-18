@@ -18,3 +18,20 @@ img#lock {
   margin-right: auto;
   margin-left: auto;
 }
+textarea#desc {
+  max-height: 200px;
+  max-width: 100%;
+}
+form#SKUSearch {
+  display: block;
+  margin-left: auto;
+  margin-right: 500;
+}
+form#NameSearch {
+  display: block;
+  margin-left: auto;
+  margin-right: 500;
+}
+form {
+  display: inline-block;
+}
