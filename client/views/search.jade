@@ -7,6 +7,8 @@ block navigation
 				a(href='/home') Home
 			li.active
 				a(href='/search') Product Search
+			li
+				a(href='/addProd') Add Inventory
 			li#signout
 				a(href="/signout") Sign Out
 block heading
@@ -23,35 +25,41 @@ block content
 			h4.panel.panel-heading
 				| Search by SKU:
 			div#formContainer.container-fluid
-				form#SKUSearch(class='form', action='/querySKU', method='POST')
-							label SKU:
-							input(type='text', name='SKU', class='form-control', placeholder='SKU',required, autofocus)
-							label Product Name:
-							input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
-							label Product Description:
-							textarea#desc(type='text', name='prodDesc', class='form-control', placeholder='Product Description',readonly)
-							label Quantity Available:
-							input(type='text', name='quantity', class='form-control', placeholder='Quantity Available',readonly)
-							label Location:
-							input(type='text', name='location', class='form-control', placeholder='Location',readonly)
-							button(class='btn btn-lg btn-primary btn-block', type='submit') Search
-							span.clearfix
+				div#prodImg.column
+					img#productpic(class='thumbnail', src='./img/lock-128.png')
+				div#prodForm.column
+					form#SKUSearch(class='form', action='/querySKU', method='POST')
+								label SKU:
+								input(type='text', name='SKU', class='form-control', placeholder='SKU',required, autofocus)
+								label Product Name:
+								input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
+								label Product Description:
+								textarea#desc(type='text', name='prodDesc', class='form-control', placeholder='Product Description',readonly)
+								label Quantity Available:
+								input(type='text', name='quantity', class='form-control', placeholder='Quantity Available',readonly)
+								label Location:
+								input(type='text', name='location', class='form-control', placeholder='Location',readonly)
+								button(class='btn btn-lg btn-primary btn-block', type='submit') Search
+								span.clearfix
 		div#searchNameForm.panel.panel-info(ng-show="Search === ! SKU")
 			h4.panel.panel-heading
 				| Search by Produt Name:
 			div#formContainer.container-fluid
-				form#NameSearch(class='form', action='/queryName', method='POST')
-							label Product Name:
-							input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name',autofocus)
-							label SKU:
-							input(type='text', name='SKU', class='form-control', placeholder='SKU',required, readonly)
-							label Product Description:
-							textarea#desc(type='text', name='prodDesc', class='form-control', placeholder='Product Description',readonly)
-							label Quantity Available:
-							input(type='text', name='quantity', class='form-control', placeholder='Quantity Available',readonly)
-							label Location:
-							input(type='text', name='location', class='form-control', placeholder='Location',readonly)
-							button(class='btn btn-lg btn-primary btn-block', type='submit') Search
-							span.clearfix
+				div#prodImg.column
+					img#productpic(class='thumbnail', src='./img/lock-128.png')
+				div#prodForm
+					form#NameSearch(class='form', action='/queryName', method='POST')
+								label Product Name:
+								input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name',autofocus)
+								label SKU:
+								input(type='text', name='SKU', class='form-control', placeholder='SKU',required, readonly)
+								label Product Description:
+								textarea#desc(type='text', name='prodDesc', class='form-control', placeholder='Product Description',readonly)
+								label Quantity Available:
+								input(type='text', name='quantity', class='form-control', placeholder='Quantity Available',readonly)
+								label Location:
+								input(type='text', name='location', class='form-control', placeholder='Location',readonly)
+								button(class='btn btn-lg btn-primary btn-block', type='submit') Search
+								span.clearfix
 block footer	
 	p &copy Acme Warehouse Managment Systems 2015

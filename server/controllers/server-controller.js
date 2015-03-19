@@ -1,63 +1,41 @@
-var PetModel = require('../models/pet-profiles');
+
+var Product = require('../models/product');
 var mongoose = require('mongoose');
-//var formidable = require('formidable');
-var util = require('util');
-var fs = require('fs');
-var post_id;
-module.exports.uploadList = function(req, res){
-	//console.log('Output: ' + JSON.stringify(req.body));
-	var petmodel = new PetModel(req.body);
-	petmodel.save(function (err, result){
-		res.json(result);
-	});
-}
 
-module.exports.downloadList = function(req, res){
-	PetModel.find({}, function (err, results){
-		res.json(results);
-	});
-}
+module.exports.addProduct = function(req, res){
+    // find a user in Mongo with provided username
+    console.log(JSON.stringify(req.body));
+    Product.findOne({ 'SKU' :  req.param('SKU') }, function(err, product) {
+        // In case of any error, return using the done method
+        if (err){
+            console.log('Error: '+err);
+        }
+        // already exists
+        if (product) {
+            console.log('Product with SKU ' + SKU + ' already exists: ');
+            req.flash('message','SKU Already Exists');
+        } else {
+            // if there is no product with that SKU
+            // create the user
+            var newProduct = new Product();
 
-module.exports.getOne = function(req, res){
-	PetModel.find({ _id : req.params.id }, function (err, results){
-		res.json(results);
-	});
-}
+            // set the user's local credentials
+            newProduct.SKU = req.body.SKU;
+            newProduct.Product_Name = req.body.prodName;
+            newProduct.Product_Description = req.body.prodDesc;
+            newProduct.Quantity = req.body.quantity;
+            newProduct.Product_Location = req.body.prodLocation;
 
-module.exports.updateList = function(req, res){
-	//var query = {_id: req.param.id};
-	PetModel.update({ _id : req.params.id }, req.body, function (err, results){
-	 	if(err){console.log(err);}
-	 	res.json(results);
-	});
-}
-
-module.exports.deleteList = function(req, res){
-	//console.log('req.params.id: ' + JSON.stringify(req.params.id));
-	PetModel.remove({ _id : req.params.id }, function (err, results){
-	 	if(err){console.log(err);}
-	 	res.json(results);
-	});
-}
-
-module.exports.uploadImagePath = function(req, res){
-		//NEED the id from mongo for the first submission here so i can update with image path
-		//console.log('Body: ' + JSON.stringify(req.body));
-		console.log('File Path to Update: ' + JSON.stringify(req.files.image.path));
-		console.log('serverController.uploadImage has ID: ' + post_id);
-		console.log('req.params.id : ' + req.params.id);
-	PetModel.update({ _id : post_id }, {image_path: req.files.image.path}, function (err, results){
-	 	if(err){console.log(err);}
-		//console.log('id: ' + $scope.prof.post_id);
-		//post_id = null;
-		//console.log('After Update ID: ' + post_id);
-		else{
-		res.redirect('/list');}
-	});
-}
-
-module.exports.postId = function (id){
-		post_id = id;
-		//console.log("postId function: " + id)
-}
-
+            // save the user
+            newProduct.save(function (err, results) {
+                if (err){
+                    console.log('Error in Saving new product: '+err);  
+                    throw err;  
+                }
+                req.flash('message','Product add succesful');
+                console.log('Product add succesful');    
+                res.json(results);
+            });
+        }
+    });
+};

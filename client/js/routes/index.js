@@ -43,10 +43,22 @@ module.exports = function(passport){
 		res.render('home', { user: req.user });
 	});
 
-	/* GET Search Page */
+	/* GET search Page */
 	router.get('/search', isAuthenticated, function(req, res){
-		res.render('search', { tab : true}, {message: req.flash('message')});
+		res.render('search', { user: req.user });
 	});
+
+	/* GET search Page */
+	router.get('/addProd', isAuthenticated, function(req, res){
+		res.render('addProd', { user: req.user });
+	});
+
+	/* Handle addProd POST */
+	router.post('/addProd', passport.authenticate('login', {
+		successRedirect: '/addProd',
+		failureRedirect: '/home',
+		failureFlash : true  
+	}));
 
 	/* Handle Logout */
 	router.get('/signout', function(req, res) {

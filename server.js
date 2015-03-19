@@ -6,8 +6,8 @@ var express = require('express'),
 	stylus	= require('stylus'),
 	// multer = require('multer'),
 	// io = require('socket.io'),
-	http = require('http');
-	// serverController = require('./server/controllers/server-controller');
+	http = require('http'),
+	serverController = require('./server/controllers/server-controller');
 
 var app = express();
 
@@ -46,6 +46,8 @@ initPassport(passport);
 var routes = require('./client/js/routes/index')(passport);
 app.use('/', routes);
 
+
+app.post('/api/addProd', serverController.addProduct);
 
 // app.use('/image', express.static(__dirname));
 // app.use(stylus.middleware({
