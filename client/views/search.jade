@@ -12,14 +12,15 @@ block navigation
 			li#signout
 				a(href="/signout") Sign Out
 block heading
+	script(text="text/javascript", src="../js/controllers/product-controller.js")
 block content
-	div#productSearch.panel.panel-primary
+	div#productSearch.panel.panel-primary(ng-controller="productController")
 		h3.panel.panel-heading
 			| Product Search
 		ul.nav.nav-tabs
-			li
+			li(ng-class="{active:Search===SKU}")
 				a(ng-click="Search = SKU") SKU
-			li
+			li(ng-class="{active:Search===!SKU}")
 				a(ng-click="Search = ! SKU") Product Name
 		div#searchSKUForm.panel.panel-info(ng-show='Search === SKU')
 			h4.panel.panel-heading

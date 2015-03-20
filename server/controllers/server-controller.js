@@ -29,13 +29,20 @@ module.exports.addProduct = function(req, res){
             // save the user
             newProduct.save(function (err, results) {
                 if (err){
+                    req.flash('message','Error Adding Product');
                     console.log('Error in Saving new product: '+err);  
                     throw err;  
                 }
                 req.flash('message','Product add succesful');
                 console.log('Product add succesful');    
-                res.json(results);
+                res.redirect('/addProd');
             });
         }
     });
-};
+}
+
+module.exports.getInventory = function(req, res){
+    Product.find({}, function (err, results){
+        res.json(results);
+    });
+}

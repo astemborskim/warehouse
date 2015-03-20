@@ -50,15 +50,8 @@ module.exports = function(passport){
 
 	/* GET search Page */
 	router.get('/addProd', isAuthenticated, function(req, res){
-		res.render('addProd', { user: req.user });
+		res.render('addProd', { user: req.user, message: req.flash('message')});
 	});
-
-	/* Handle addProd POST */
-	router.post('/addProd', passport.authenticate('login', {
-		successRedirect: '/addProd',
-		failureRedirect: '/home',
-		failureFlash : true  
-	}));
 
 	/* Handle Logout */
 	router.get('/signout', function(req, res) {

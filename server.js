@@ -48,7 +48,7 @@ app.use('/', routes);
 
 
 app.post('/api/addProd', serverController.addProduct);
-
+app.get('/api/inventory', serverController.getInventory);
 // app.use('/image', express.static(__dirname));
 // app.use(stylus.middleware({
 // 	src: __dirname + '/css',
