@@ -19,9 +19,9 @@ block content
 			| Product Search
 		ul.nav.nav-tabs
 			li(ng-class="{active:Search===SKU}")
-				a(ng-click="Search = SKU") SKU
+				a(ng-click="Search = SKU; loadSKUSearch()") SKU
 			li(ng-class="{active:Search===!SKU}")
-				a(ng-click="Search = ! SKU") Product Name
+				a(ng-click="Search = ! SKU; loadNameSearch()") Product Name
 		div#searchSKUForm.panel.panel-info(ng-show='Search === SKU')
 			h4.panel.panel-heading
 				| Search by SKU:
@@ -29,9 +29,18 @@ block content
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/lock-128.png')
 				div#prodForm.column
-					form#SKUSearch(class='form', action='/querySKU', method='POST')
+					form#SKUSearch(class='form', action='/querySKU', method='POST' autocomplete='off')
 								label SKU:
-								input(type='text', name='SKU', class='form-control', placeholder='SKU',required, autofocus)
+								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='search.SKU',required, autofocus)
+								div
+									div#prodList
+										table
+											tr
+												th SKU
+												th Product Name
+											tr(ng-repeat="prod in inventory | orderBy: orderBySKU | limitTo: viewLimit | filter: search")
+												td {{prod.SKU}}
+												td {{prod.Product_Name}}
 								label Product Name:
 								input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
 								label Product Description:
@@ -49,9 +58,18 @@ block content
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/lock-128.png')
 				div#prodForm
-					form#NameSearch(class='form', action='/queryName', method='POST')
+					form#NameSearch(class='form', action='/queryName', method='POST' autocomplete='off')
 								label Product Name:
-								input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name',autofocus)
+								input(type='text', name='prodName', class='form-control', ng-model="search.Product_Name", placeholder='Product Name', autofocus)
+								div
+									div#prodList
+										table
+											tr
+												th SKU
+												th Product Name
+											tr(ng-repeat="prod in inventory | orderBy: orderByName | limitTo: viewLimit | filter: search")
+												td {{prod.SKU}}
+												td {{prod.Product_Name}}
 								label SKU:
 								input(type='text', name='SKU', class='form-control', placeholder='SKU',required, readonly)
 								label Product Description:
