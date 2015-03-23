@@ -6,13 +6,13 @@ app.controller('productController', ['$scope', '$resource',
 	getInventory = function(req, res){
 		Inventory.query(function (results){
 			$scope.inventory=results;
-			console.log(JSON.stringify(results));
+			//console.log(JSON.stringify(results));
 			//console.log(inventory);
 	})}
 
 	$scope.orderBySKU = 'SKU';
 	$scope.orderByName = 'Product_Name';
-	$scope.viewLimit = 10;
+	$scope.viewLimit = 20;
 
 	getInventory();
 

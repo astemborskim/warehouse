@@ -29,10 +29,10 @@ block content
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/lock-128.png')
 				div#prodForm.column
-					form#SKUSearch(class='form', action='/querySKU', method='POST' autocomplete='off')
+					form#SKUSearch(class='form' autocomplete='off')
 								label SKU:
 								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='search.SKU',required, autofocus)
-								div
+								div(ng-hide="search.SKU == null")
 									div#prodList
 										table
 											tr
@@ -58,10 +58,10 @@ block content
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/lock-128.png')
 				div#prodForm
-					form#NameSearch(class='form', action='/queryName', method='POST' autocomplete='off')
+					form#NameSearch(class='form' autocomplete='off')
 								label Product Name:
 								input(type='text', name='prodName', class='form-control', ng-model="search.Product_Name", placeholder='Product Name', autofocus)
-								div
+								div(ng-hide="search.ProductName == null")
 									div#prodList
 										table
 											tr
