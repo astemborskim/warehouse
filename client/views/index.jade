@@ -21,7 +21,7 @@ block content
 				div.account-wall
 					img#lock(class='profile-img', src='./img/lock-128.png')
 					h1.text-center.login-title Sign in
-					form#signin(class='form-signin', action='/login', method='POST')
+					form#signin(class='form-signin', action='/login', method='POST', autocomplete='off')
 						input(type='text', name='username' class='form-control', placeholder='Email',required, autofocus)
 						input(type='password', name='password' class='form-control', placeholder='Password', required)
 						button(class='btn btn-lg btn-primary btn-block', type='submit') Sign in

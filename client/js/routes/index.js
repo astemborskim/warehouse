@@ -11,6 +11,13 @@ var isAuthenticated = function (req, res, next) {
 	res.redirect('/');
 }
 
+var isAdmin = function (req, res, next){
+	if (req.user.isAdmin == true)
+		return next();
+	req.flash('message','Requires Admin Account!');
+	res.redirect('/home');
+}
+
 module.exports = function(passport){
 
 	/* GET login page. */
@@ -40,7 +47,7 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/home', isAuthenticated, function(req, res){
-		res.render('home', { user: req.user });
+		res.render('home', { user: req.user, message: req.flash('message')});
 	});
 
 	/* GET search Page */
@@ -49,7 +56,7 @@ module.exports = function(passport){
 	});
 
 	/* GET search Page */
-	router.get('/addProd', isAuthenticated, function(req, res){
+	router.get('/addProd', isAuthenticated, isAdmin, function(req, res){
 		res.render('addProd', { user: req.user, message: req.flash('message')});
 	});
 

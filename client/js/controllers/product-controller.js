@@ -15,11 +15,5 @@ app.controller('productController', ['$scope', '$resource',
 	$scope.orderBySKU = 'SKU';
 	$scope.orderByName = 'Product_Name';
 	getInventory();
-
-	$scope.loadSKUSearch = function(){
-
-	}
-	$scope.loadNameSearch = function(){
-		
-	}
+	
 }]);
