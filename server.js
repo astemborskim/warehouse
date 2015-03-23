@@ -46,7 +46,7 @@ initPassport(passport);
 var routes = require('./client/js/routes/index')(passport);
 app.use('/', routes);
 
-
+//REST API Routes
 app.post('/api/addProd', serverController.addProduct);
 app.get('/api/inventory', serverController.getInventory);
 // app.use('/image', express.static(__dirname));

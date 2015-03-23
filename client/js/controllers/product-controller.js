@@ -6,22 +6,20 @@ app.controller('productController', ['$scope', '$resource',
 	getInventory = function(req, res){
 		Inventory.query(function (results){
 			$scope.inventory=results;
+			// $scope.skuSearch=results;
+			// $scope.nameSearch=results;
 			//console.log(JSON.stringify(results));
 			//console.log(inventory);
 	})}
 
 	$scope.orderBySKU = 'SKU';
 	$scope.orderByName = 'Product_Name';
-	$scope.viewLimit = 20;
-
 	getInventory();
 
 	$scope.loadSKUSearch = function(){
-			$scope.search.Product_Name="";
-			$scope.search.SKU = "";
+
 	}
 	$scope.loadNameSearch = function(){
-			$scope.search.SKU = "";
-			$scope.search.Product_Name="";	
+		
 	}
 }]);

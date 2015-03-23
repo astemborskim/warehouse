@@ -31,14 +31,14 @@ block content
 				div#prodForm.column
 					form#SKUSearch(class='form' autocomplete='off')
 								label SKU:
-								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='search.SKU',required, autofocus)
-								div(ng-hide="search.SKU == null")
+								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='searchSKU.SKU',required, autofocus)
+								div(ng-hide="searchSKU.SKU == null")
 									div#prodList
 										table
 											tr
 												th SKU
 												th Product Name
-											tr(ng-repeat="prod in inventory | orderBy: orderBySKU | limitTo: viewLimit | filter: search")
+											tr(ng-repeat="prod in inventory | orderBy: orderBySKU | filter: searchSKU")
 												td {{prod.SKU}}
 												td {{prod.Product_Name}}
 								label Product Name:
@@ -60,14 +60,14 @@ block content
 				div#prodForm
 					form#NameSearch(class='form' autocomplete='off')
 								label Product Name:
-								input(type='text', name='prodName', class='form-control', ng-model="search.Product_Name", placeholder='Product Name', autofocus)
-								div(ng-hide="search.ProductName == null")
+								input(type='text', name='prodName', class='form-control', placeholder='Product Name', ng-model="searchName.Product_Name", required, autofocus)
+								div(ng-hide="searchName.Product_Name == null")
 									div#prodList
 										table
 											tr
 												th SKU
 												th Product Name
-											tr(ng-repeat="prod in inventory | orderBy: orderByName | limitTo: viewLimit | filter: search")
+											tr(ng-repeat="prod in inventory | orderBy: orderByName | filter: searchName")
 												td {{prod.SKU}}
 												td {{prod.Product_Name}}
 								label SKU:

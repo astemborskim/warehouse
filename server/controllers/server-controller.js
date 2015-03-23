@@ -33,8 +33,8 @@ module.exports.addProduct = function(req, res){
                     console.log('Error in Saving new product: '+err);  
                     throw err;  
                 }
-                req.flash('message','Product add succesful');
-                console.log('Product add succesful');    
+                req.flash('message','Product add successful!');
+                console.log('Product add successful!');    
                 res.redirect('/addProd');
             });
         }
