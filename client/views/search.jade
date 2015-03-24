@@ -9,13 +9,15 @@ block navigation
 				a(href='/search') Product Search
 			li
 				a(href='/addProd') Add Inventory
+			li#user
+				| Signed in as: #{username}
 			li#signout
 				a(href="/signout") Sign Out
 block heading
 	script(text="text/javascript", src="../js/controllers/product-controller.js")
 block content
 	div#productSearch.panel.panel-primary(ng-controller="productController")
-		h3.panel.panel-heading
+		h3#mainHeading.panel.panel-heading
 			| Product Search
 		ul.nav.nav-tabs
 			li(ng-class="{active:Search===SKU}")
@@ -31,14 +33,14 @@ block content
 				div#prodForm.column
 					form#SKUSearch(class='form' autocomplete='off')
 								label SKU:
-								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='searchSKU.SKU',required, autofocus)
-								div(ng-hide="searchSKU.SKU == null")
+								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='prod.searchSKU.SKU', ng-click="showList()", required, autofocus)
+								div(ng-hide= "prod.searchSKU.SKU == null || prod.hideList == true")
 									div#prodList
 										table
 											tr
 												th SKU
 												th Product Name
-											tr(ng-repeat="prod in inventory | orderBy: orderBySKU | filter: searchSKU")
+											tr(ng-repeat="prod in inventory | orderBy: orderBySKU | filter: prod.searchSKU")
 												td 
 													a(href="" ng-click="getProductBySKU(prod)") {{prod.SKU}}
 												td {{prod.Product_Name}}

@@ -52,7 +52,7 @@ module.exports = function(passport){
 
 	/* GET search Page */
 	router.get('/search', isAuthenticated, function(req, res){
-		res.render('search', { user: req.user });
+		res.render('search', { user: req.user, username : req.user.username });
 	});
 
 	/* GET search Page */
