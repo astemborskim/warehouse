@@ -39,16 +39,17 @@ block content
 												th SKU
 												th Product Name
 											tr(ng-repeat="prod in inventory | orderBy: orderBySKU | filter: searchSKU")
-												td {{prod.SKU}}
+												td 
+													a(href="" ng-click="getProductBySKU(prod)") {{prod.SKU}}
 												td {{prod.Product_Name}}
 								label Product Name:
-								input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
+								input(type='text', ng-model="prod.NameBySKU" name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
 								label Product Description:
-								textarea#desc(type='text', name='prodDesc', class='form-control', placeholder='Product Description',readonly)
+								textarea#desc(type='text', ng-model="prod.DescBySKU" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
 								label Quantity Available:
-								input(type='text', name='quantity', class='form-control', placeholder='Quantity Available',readonly)
+								input(type='text', ng-model="prod.quantityBySKU" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 								label Location:
-								input(type='text', name='location', class='form-control', placeholder='Location',readonly)
+								input(type='text', ng-model="prod.locationBySKU" name='location', class='form-control', placeholder='Location',readonly)
 								button(class='btn btn-lg btn-primary btn-block', type='submit') Search
 								span.clearfix
 		div#searchNameForm.panel.panel-info(ng-show="Search === ! SKU")
@@ -68,16 +69,17 @@ block content
 												th SKU
 												th Product Name
 											tr(ng-repeat="prod in inventory | orderBy: orderByName | filter: searchName")
-												td {{prod.SKU}}
+												td 
+													a(href="" ng-click="getProductByName(prod)") {{prod.SKU}}
 												td {{prod.Product_Name}}
 								label SKU:
-								input(type='text', name='SKU', class='form-control', placeholder='SKU',required, readonly)
+								input(type='text', ng-model="prod.NameByName" name='SKU', class='form-control', placeholder='SKU',required, readonly)
 								label Product Description:
-								textarea#desc(type='text', name='prodDesc', class='form-control', placeholder='Product Description',readonly)
+								textarea#desc(type='text', ng-model="prod.DescByName" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
 								label Quantity Available:
-								input(type='text', name='quantity', class='form-control', placeholder='Quantity Available',readonly)
+								input(type='text', ng-model="prod.quantityByName" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 								label Location:
-								input(type='text', name='location', class='form-control', placeholder='Location',readonly)
+								input(type='text', ng-model="prod.locationByName" name='location', class='form-control', placeholder='Location',readonly)
 								button(class='btn btn-lg btn-primary btn-block', type='submit') Search
 								span.clearfix
 block footer	

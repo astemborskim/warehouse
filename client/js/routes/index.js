@@ -14,7 +14,7 @@ var isAuthenticated = function (req, res, next) {
 var isAdmin = function (req, res, next){
 	if (req.user.isAdmin == true)
 		return next();
-	req.flash('message','Requires Admin Account!');
+	req.flash('message','This action requires and admin account!');
 	res.redirect('/home');
 }
 

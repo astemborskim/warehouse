@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 module.exports.addProduct = function(req, res){
     // find a user in Mongo with provided username
-    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body));
     Product.findOne({ 'SKU' :  req.param('SKU') }, function(err, product) {
         // In case of any error, return using the done method
         if (err){
@@ -12,7 +12,7 @@ module.exports.addProduct = function(req, res){
         }
         // already exists
         if (product) {
-            console.log('Product with SKU ' + SKU + ' already exists: ');
+            //console.log('Product with SKU ' + SKU + ' already exists: ');
             req.flash('message','SKU Already Exists');
         } else {
             // if there is no product with that SKU
@@ -33,8 +33,8 @@ module.exports.addProduct = function(req, res){
                     console.log('Error in Saving new product: '+err);  
                     throw err;  
                 }
-                req.flash('message','Product add successful!');
-                console.log('Product add successful!');    
+                req.flash('message','Product added successfully!');
+                //console.log('Product added successfully!');    
                 res.redirect('/addProd');
             });
         }
