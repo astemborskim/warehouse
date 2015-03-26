@@ -1,7 +1,7 @@
 extends layout
 
 block navigation
-	div.navbar.navbar-default
+	div#navbar.navbar.navbar-default
 		ul.nav.nav-pills
 			li
 				a(href='/home') Home
@@ -13,19 +13,26 @@ block navigation
 				a(href="/signout") Sign Out
 block heading
 block content
-	form#prodAdd(class='form', action='/api/addProd', method='POST')
-		label SKU:
-		input(type='text', name='SKU', class='form-control', placeholder='SKU',required, autofocus)
-		label Product Name:
-		input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name')
-		label Product Description:
-		textarea#desc(type='text', name='prodDesc', class='form-control', placeholder='Product Description')
-		label Quantity Available:
-		input(type='text', name='quantity', class='form-control', placeholder='Quantity Available')
-		label Location:
-		input(type='text', name='prodLocation', class='form-control', placeholder='Location')
-		button(class='btn btn-lg btn-primary btn-block', type='submit') Add
-		span.clearfix
+	div#outerForm.panel.panel-primary
+		h4#mainHeading.panel.panel-heading
+			| Add Product
+		div#innerForm.panel.panel-info(ng-show='Search === SKU')
+			h4.panel.panel-heading
+					| Search by SKU:
+				div#addProdformContainer.container-fluid
+					form#prodAdd(class='form', action='/api/addProd', method='POST')
+						label SKU:
+						input(type='text', name='SKU', class='form-control', placeholder='SKU',required, autofocus)
+						label Product Name:
+						input(type='text', name='prodName', class='form-control nomargin', placeholder='Product Name')
+						label Product Description:
+						textarea#desc(type='text', name='prodDesc', class='form-control', placeholder='Product Description')
+						label Quantity Available:
+						input(type='text', name='quantity', class='form-control', placeholder='Quantity Available')
+						label Location:
+						input(type='text', name='prodLocation', class='form-control', placeholder='Location')
+						button(class='btn btn-lg btn-primary btn-block', type='submit') Add
+						span.clearfix
 	#message
 		if message
 			h2.text-center.error-message #{message}	

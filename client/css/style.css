@@ -1,24 +1,26 @@
-.navbar.navbar-default {
+#navbar {
   position: fixed;
-  width: 100%;
+  width: 98%;
   display: block;
   min-width: 1100px;
   z-index: 10;
 }
 #mainHeading {
-  margin-top: 50;
-  margin-bottom: 0;
   overflow: hidden;
   display: block;
 }
-#productSearch {
+#outerForm {
+  disply: block;
   padding: 10;
+  margin-bottom: 1000px;
+  padding-top: 50;
 }
-#searchForm {
+#innerForm {
   padding: 10;
 }
 #signout {
   float: right;
+  margin-right: 25px;
 }
 #user {
   float: right;

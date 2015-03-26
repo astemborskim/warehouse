@@ -1,7 +1,7 @@
 extends layout
 
 block navigation
-	div.navbar.navbar-default
+	div#navbar.navbar.navbar-default
 		ul.nav.nav-pills
 			li.active
 				a(href='/home') Home
@@ -13,10 +13,10 @@ block navigation
 				a(href='/signout') Sign Out
 block heading
 block content
-	div#productSearch.panel.panel-primary
-		h4.panel.panel-heading
+	div#outerForm.panel.panel-primary
+		h4#mainHeading.panel.panel-heading
 			| Home Page - Give this a Title
-		div#searchForm.panel.panel-info
+		div#innerForm.panel.panel-info
 			h4.panel.panel-heading
 				| Show user Options:
 			div#formContainer.container-fluid

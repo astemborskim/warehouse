@@ -1,7 +1,7 @@
 extends layout
 
 block navigation
-	div.navbar.navbar-default
+	div#navbar.navbar.navbar-default
 		ul.nav.nav-pills
 			li
 				a(href='/home') Home
@@ -16,15 +16,15 @@ block navigation
 block heading
 	script(text="text/javascript", src="../js/controllers/product-controller.js")
 block content
-	div#productSearch.panel.panel-primary(ng-controller="productController")
-		h3#mainHeading.panel.panel-heading
+	div#outerForm.panel.panel-primary(ng-controller="productController")
+		h4#mainHeading.panel.panel-heading
 			| Product Search
 		ul.nav.nav-tabs
 			li(ng-class="{active:Search===SKU}")
 				a(ng-click="Search = SKU; loadSKUSearch()") SKU
 			li(ng-class="{active:Search===!SKU}")
 				a(ng-click="Search = ! SKU; loadNameSearch()") Product Name
-		div#searchSKUForm.panel.panel-info(ng-show='Search === SKU')
+		div#innerForm.panel.panel-info(ng-show='Search === SKU')
 			h4.panel.panel-heading
 				| Search by SKU:
 			div#formContainer.container-fluid

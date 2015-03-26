@@ -1,31 +1,31 @@
 extends layout
 
 block navigation
-	div.navbar.navbar-default
+	div#navbar.navbar.navbar-default
 		ul.nav.nav-pills
 			li#register
 				a(href='/signup') Register
 			li#login.active
 				a(href="/") Login
 block heading
-	div.panel.panel-primary
-		h3.panel.panel-heading
-			| Acme Warehouse Inventory Managment
 block content
-	div#searchForm.panel.panel-info
-		h4.panel.panel-heading
-			| User Login:
-		div.container-fluid
-			div.row
-			div.col-sm-6.col-md-4.col-md-offset-4
-				div.account-wall
-					img#lock(class='profile-img', src='./img/lock-128.png')
-					h1.text-center.login-title Sign in
-					form#signin(class='form-signin', action='/login', method='POST', autocomplete='off')
-						input(type='text', name='username' class='form-control', placeholder='Email',required, autofocus)
-						input(type='password', name='password' class='form-control', placeholder='Password', required)
-						button(class='btn btn-lg btn-primary btn-block', type='submit') Sign in
-						span.clearfix
+	div#outerForm.panel.panel-primary
+		h4#mainHeading.panel.panel-heading
+			| Acme Warehouse Inventory Managment
+		div#innerForm.panel.panel-info
+			h4.panel.panel-heading
+				| User Login:
+			div.container-fluid
+				div.row
+				div.col-sm-6.col-md-4.col-md-offset-4
+					div.account-wall
+						img#lock(class='profile-img', src='./img/lock-128.png')
+						h1.text-center.login-title Sign in
+						form#signin(class='form-signin', action='/login', method='POST', autocomplete='off')
+							input(type='text', name='username' class='form-control', placeholder='Email',required, autofocus)
+							input(type='password', name='password' class='form-control', placeholder='Password', required)
+							button(class='btn btn-lg btn-primary btn-block', type='submit') Sign in
+							span.clearfix
 				#message
 				if message
 					h2.text-center.error-message #{message}
