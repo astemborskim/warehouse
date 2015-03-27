@@ -29,7 +29,8 @@ block content
 				| Search by SKU:
 			div#formContainer.container-fluid
 				div#prodImg.column
-					img#productpic(class='thumbnail', src='./img/lock-128.png')
+					img#productpic(class='thumbnail', src='./img/StockPhoto.jpg')
+					button#editProdButton.btn.btn-primary(ng-click="") Edit Item
 				div#prodForm.column
 					form#SKUSearch(class='form' autocomplete='off')
 								label SKU:
@@ -52,37 +53,38 @@ block content
 								input(type='text', ng-model="prod.quantityBySKU" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 								label Location:
 								input(type='text', ng-model="prod.locationBySKU" name='location', class='form-control', placeholder='Location',readonly)
-								button(class='btn btn-lg btn-primary btn-block', type='submit') Search
+								//- button(class='btn btn-lg btn-primary btn-block', type='submit') Search
 								span.clearfix
 		div#searchNameForm.panel.panel-info(ng-show="Search === ! SKU")
 			h4.panel.panel-heading
 				| Search by Produt Name:
 			div#formContainer.container-fluid
 				div#prodImg.column
-					img#productpic(class='thumbnail', src='./img/lock-128.png')
+					img#productpic(class='thumbnail', src='./img/StockPhoto.jpg')
+					button#editProdButton.btn.btn-primary(ng-click="") Edit Item
 				div#prodForm
 					form#NameSearch(class='form' autocomplete='off')
 								label Product Name:
-								input(type='text', name='prodName', class='form-control', placeholder='Product Name', ng-model="searchName.Product_Name", required, autofocus)
-								div(ng-hide="searchName.Product_Name == null")
+								input(type='text', name='prodName', class='form-control', placeholder='Product Name', ng-model="prod.searchName.Product_Name", ng-click="showList()", required, autofocus)
+								div(ng-hide="prod.searchName.Product_Name == null || prod.hideList == true")
 									div#prodList
 										table
 											tr
 												th SKU
 												th Product Name
-											tr(ng-repeat="prod in inventory | orderBy: orderByName | filter: searchName")
+											tr(ng-repeat="prod in inventory | orderBy: orderByName | filter: prod.searchName")
 												td 
 													a(href="" ng-click="getProductByName(prod)") {{prod.SKU}}
 												td {{prod.Product_Name}}
 								label SKU:
-								input(type='text', ng-model="prod.NameByName" name='SKU', class='form-control', placeholder='SKU',required, readonly)
+								input(type='text', ng-model="prod.SKUByName" name='SKU', class='form-control', placeholder='SKU',required, readonly)
 								label Product Description:
 								textarea#desc(type='text', ng-model="prod.DescByName" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
 								label Quantity Available:
 								input(type='text', ng-model="prod.quantityByName" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 								label Location:
 								input(type='text', ng-model="prod.locationByName" name='location', class='form-control', placeholder='Location',readonly)
-								button(class='btn btn-lg btn-primary btn-block', type='submit') Search
+								//- button(class='btn btn-lg btn-primary btn-block', type='submit') Search
 								span.clearfix
 block footer	
 	p &copy Acme Warehouse Managment Systems 2015

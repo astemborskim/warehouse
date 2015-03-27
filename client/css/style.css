@@ -9,14 +9,15 @@
   overflow: hidden;
   display: block;
 }
-#outerForm {
-  disply: block;
-  padding: 10;
-  margin-bottom: 1000px;
+#regForm {
   padding-top: 50;
 }
-#innerForm {
+#outerForm {
+  display: block;
   padding: 10;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 50;
 }
 #signout {
   float: right;
@@ -52,21 +53,36 @@
 }
 #prodImg {
   float: left;
-  margin: 0;
-  width: 250px;
-  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 275px;
+  height: 275px;
   padding: 2%;
+  margin-bottom: 40px;
+}
+#editProdButton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 #prodForm {
   float: left;
   margin: 0;
-  width: 50%;
+  width: 60%;
 }
 #productpic {
   width: 100%;
 }
 #prodAdd {
   width: 50%;
+}
+#addProdformContainer {
+  padding-left: 100px;
+}
+#formContainer {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
 table {
   table-layout: fixed;

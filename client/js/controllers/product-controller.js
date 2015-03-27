@@ -23,10 +23,12 @@ app.controller('productController', ['$scope', '$resource',
 
 	$scope.getProductByName = function (product){
 
-		$scope.prod.NameByName = product.Product_Name;
+		$scope.prod.searchName.Product_Name = product.Product_Name;
+		$scope.prod.SKUByName = product.SKU;
 		$scope.prod.DescByName = product.Product_Description;
 		$scope.prod.quantityByName = product.Quantity;
 		$scope.prod.locationByName = product.Product_Location;
+		$scope.prod.hideList = true;
 	}
 
 	$scope.showList = function(){

@@ -12,8 +12,9 @@ module.exports.addProduct = function(req, res){
         }
         // already exists
         if (product) {
-            //console.log('Product with SKU ' + SKU + ' already exists: ');
+            console.log('Product with SKU already exists: ');
             req.flash('message','SKU Already Exists');
+            res.redirect('/addProd');
         } else {
             // if there is no product with that SKU
             // create the user
