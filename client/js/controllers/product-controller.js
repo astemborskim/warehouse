@@ -1,5 +1,4 @@
-app.controller('productController', ['$scope', '$resource',
-	function ($scope, $resource) {
+app.controller('productController', ['$scope', '$resource', 'editProductService', function ($scope, $resource, editProductService) {
 
 	$scope.prod={};
 
@@ -31,6 +30,13 @@ app.controller('productController', ['$scope', '$resource',
 		$scope.prod.hideList = true;
 	}
 
+	$scope.setEditProduct = function (product){
+
+		editProductService.saveProductForEdit(product);
+		console.log(product);
+	}
+
+
 	$scope.showList = function(){
 		$scope.prod.hideList = false;
 	}
@@ -41,3 +47,4 @@ app.controller('productController', ['$scope', '$resource',
 	
 	
 }]);
+

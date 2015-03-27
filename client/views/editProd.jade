@@ -1,0 +1,42 @@
+extends layout
+
+block navigation
+	div#navbar.navbar.navbar-default
+		ul.nav.nav-pills
+			li
+				a(href='/home') Home
+			li
+				a(href='/search') Product Search
+			li.active
+				a(href='/addProd') Add Inventory
+			li#signout
+				a(href="/signout") Sign Out
+block heading
+	script(text="text/javascript", src="../js/controllers/test-controller.js")
+	script(text="text/javascript", src="../js/services/editProduct-service.js")
+block content
+	div#outerForm.panel.panel-primary(ng-controller="testController")
+		h4#mainHeading.panel.panel-heading
+			| Edit Product
+		div#innerForm.panel.panel-info(ng-show='Search === SKU')
+			h4.panel.panel-heading
+				| Apply Modifications to Product:
+			div#formContainer.container-fluid
+				div#prodForm.column
+					form#SKUSearch(class='form' autocomplete='off')
+								label SKU:
+								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='prod.searchSKU.SKU',  ng-change="showList()", ng-click="showList()")
+								label Product Name:
+								input(type='text', ng-model="prod.NameBySKU" name='prodName', class='form-control nomargin', placeholder='Product Name')
+								label Product Description:
+								textarea#desc(type='text', ng-model="prod.DescBySKU" name='prodDesc', class='form-control', placeholder='Product Description')
+								label Quantity Available:
+								input(type='text', ng-model="prod.quantityBySKU" name='quantity', class='form-control', placeholder='Quantity Available')
+								label Location:
+								input(type='text', ng-model="prod.locationBySKU" name='location', class='form-control', placeholder='Location')
+								//- button(class='btn btn-lg btn-primary btn-block', type='submit') Search
+								span.clearfix
+								button#editProdButton.btn.btn-primary
+									a#editProdLink(ng-click='setEditProduct(prod)' href="/editProd" ) Set Product
+								button#editProdButton.btn.btn-primary
+									a#editProdLink(ng-click='getEditProduct()') Get Product

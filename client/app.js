@@ -1,1 +1,1 @@
-var app = angular.module('warehouseApp', ['ngResource'])
+var app = angular.module('warehouseApp', ['ngResource']);

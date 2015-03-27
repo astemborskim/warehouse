@@ -15,6 +15,7 @@ block navigation
 				a(href="/signout") Sign Out
 block heading
 	script(text="text/javascript", src="../js/controllers/product-controller.js")
+	script(text="text/javascript", src="../js/services/editProduct-service.js")
 block content
 	div#outerForm.panel.panel-primary(ng-controller="productController")
 		h4#mainHeading.panel.panel-heading
@@ -30,11 +31,14 @@ block content
 			div#formContainer.container-fluid
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/StockPhoto.jpg')
-					button#editProdButton.btn.btn-primary(ng-click="") Edit Item
+					button#editProdButton.btn.btn-primary
+						a#editProdLink(ng-click='setEditProduct(prod)' href="/editProd" ) Set Product
+					button#editProdButton.btn.btn-primary
+						a#editProdLink(ng-click='getEditProduct()') Get Product
 				div#prodForm.column
 					form#SKUSearch(class='form' autocomplete='off')
 								label SKU:
-								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='prod.searchSKU.SKU', ng-click="showList()", required, autofocus)
+								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='prod.searchSKU.SKU',  ng-change="showList()", ng-click="showList()", required, autofocus)
 								div(ng-hide= "prod.searchSKU.SKU == null || prod.hideList == true")
 									div#prodList
 										table
@@ -61,11 +65,12 @@ block content
 			div#formContainer.container-fluid
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/StockPhoto.jpg')
-					button#editProdButton.btn.btn-primary(ng-click="") Edit Item
+					button#editProdButton.btn.btn-primary
+						a#editProdLink(href='/home') Edit Item
 				div#prodForm
 					form#NameSearch(class='form' autocomplete='off')
 								label Product Name:
-								input(type='text', name='prodName', class='form-control', placeholder='Product Name', ng-model="prod.searchName.Product_Name", ng-click="showList()", required, autofocus)
+								input(type='text', name='prodName', class='form-control', placeholder='Product Name', ng-model="prod.searchName.Product_Name", ng-change="showList()", ng-click="showList()", required, autofocus)
 								div(ng-hide="prod.searchName.Product_Name == null || prod.hideList == true")
 									div#prodList
 										table
