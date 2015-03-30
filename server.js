@@ -20,8 +20,14 @@ mongoose.connect(dbConfig.url);
 app.set('views', __dirname + '/client/views');
 app.set('view engine', 'jade');
 
+// function defaultContentTypeMiddleware (req, res, next) {
+//   req.headers['content-type'] = req.headers['content-type'] || 'application/json';
+//   next();
+// }
+
+// app.use(defaultContentTypeMiddleware);
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded());
+app.use(bodyparser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/client/'));
 
@@ -49,6 +55,7 @@ app.use('/', routes);
 //REST API Routes
 app.post('/api/addProd', serverController.addProduct);
 app.get('/api/inventory', serverController.getInventory);
+app.put('/api/inventory/:_id', serverController.editInventory);
 // app.use('/image', express.static(__dirname));
 // app.use(stylus.middleware({
 // 	src: __dirname + '/css',

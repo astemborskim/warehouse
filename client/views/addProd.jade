@@ -31,7 +31,8 @@ block content
 						input(type='text', name='quantity', class='form-control', placeholder='Quantity Available')
 						label Location:
 						input(type='text', name='prodLocation', class='form-control', placeholder='Location')
-						button(class='btn btn-lg btn-primary btn-block', type='submit') Add
+						button#addProdButton(class='btn btn-primary', type='submit') Add
+						button#addProdButton(class='btn btn-primary', type='submit') Cancel
 						span.clearfix
 	#message
 		if message

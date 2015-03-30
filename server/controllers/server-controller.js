@@ -47,3 +47,9 @@ module.exports.getInventory = function(req, res){
         res.json(results);
     });
 }
+
+module.exports.editInventory = function(req, res){
+    console.log(req.user.isAdmin);
+    console.log(JSON.stringify(req.body));
+    res.json(req.body);
+}

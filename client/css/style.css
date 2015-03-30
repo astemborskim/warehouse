@@ -69,7 +69,14 @@
   margin-right: auto;
 }
 #editButtonGroup {
-  display: block;
+  display: inline-block;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#addProdButton {
+  display: inline-block;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
 }

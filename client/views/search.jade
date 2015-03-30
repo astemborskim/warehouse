@@ -17,21 +17,24 @@ block heading
 	script(text="text/javascript", src="../js/controllers/product-controller.js")
 block content
 	div#outerForm.panel.panel-primary(ng-controller="productController")
-		h4#mainHeading.panel.panel-heading
+		h4#mainHeading.panel.panel-heading(ng-hide="prod.showEdit==true")
 			| Product Search
-		ul.nav.nav-tabs
+		h4#mainHeading.panel.panel-heading(ng-show="prod.showEdit==true")
+			| Edit Product
+		ul.nav.nav-tabs(ng-hide="prod.showEdit==true")
 			li(ng-class="{active:Search===SKU}")
 				a(ng-click="Search = SKU; loadSKUSearch()") SKU
 			li(ng-class="{active:Search===!SKU}")
 				a(ng-click="Search = ! SKU; loadNameSearch()") Product Name
 		div#innerForm.panel.panel-info(ng-show='Search === SKU')
-			h4.panel.panel-heading
+			h4.panel.panel-heading(ng-hide="prod.showEdit==true")
 				| Search by SKU:
+			h4.panel.panel-heading(ng-show="prod.showEdit==true")
+				| Edit:
 			div#formContainer.container-fluid
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/StockPhoto.jpg')
-					button#editProdButton.btn.btn-primary(ng-hide="prod.showEdit == true")
-						a#editProdLink(ng-click='showEdit()') Edit
+					button#editProdButton.btn.btn-primary(ng-hide="prod.showEdit == true" ng-click='showEdit()') Edit
 				div#prodForm.column
 					form#SKUSearch(class='form' autocomplete='off' ng-hide="prod.showEdit == true")
 								label SKU:
@@ -68,8 +71,8 @@ block content
 								label Location:
 								input(type='text', ng-model="prod.locationBySKU" name='location', class='form-control', placeholder='Location')
 								span.clearfix
-									button#editButtonGroup(class='btn btn-primary', type='submit') Submit
-									button#editButtonGroup(class='btn btn-primary', ng-click="hideEdit()") Cancel
+									button#editButtonGroup(class='btn btn-primary', type='button', ng-click="updateProduct();") Submit
+									button#editButtonGroup(class='btn btn-primary', type='button' ng-click="restoreProduct();hideEdit()") Cancel
 		div#searchNameForm.panel.panel-info(ng-show="Search === ! SKU")
 			h4.panel.panel-heading
 				| Search by Produt Name:
