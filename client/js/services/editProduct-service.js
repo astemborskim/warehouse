@@ -1,16 +1,16 @@
-app.factory('editProductService', function(){
+// app.factory('editProductService', function(){
 
-	var productForEdit;;
+// 	var productForEdit;;
 
-        return {
-            saveProductForEdit:function (data) {
-                productForEdit = data;
-                console.log(data);
-            },
-            getProductForEdit:function () {
-                return productForEdit;
-            }
-        };
+//         return {
+//             saveProductForEdit:function (data) {
+//                 productForEdit = data;
+//                 console.log(data);
+//             },
+//             getProductForEdit:function () {
+//                 return productForEdit;
+//             }
+//         };
 
 	// function set(data){
 	// 	savedData = data;
@@ -24,4 +24,4 @@ app.factory('editProductService', function(){
 	// 	set: set,
 	// 	get: get
 	// }
-});
+// });

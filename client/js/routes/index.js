@@ -60,10 +60,10 @@ module.exports = function(passport){
 		res.render('addProd', { user: req.user, message: req.flash('message')});
 	});
 
-	/* GET edit Page */
-	router.get('/editProd', isAuthenticated, isAdmin, function(req, res){
-		res.render('editProd', { user: req.user, message: req.flash('message')});
-	});
+	// /* GET edit Page */
+	// router.get('/editProd', isAuthenticated, isAdmin, function(req, res){
+	// 	res.render('editProd', { user: req.user, message: req.flash('message')});
+	// });
 
 	/* Handle Logout */
 	router.get('/signout', function(req, res) {

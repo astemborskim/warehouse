@@ -1,4 +1,4 @@
-app.controller('productController', ['$scope', '$resource', 'editProductService', function ($scope, $resource, editProductService) {
+app.controller('productController', ['$scope', '$resource', function ($scope, $resource) {
 
 	$scope.prod={};
 
@@ -30,12 +30,16 @@ app.controller('productController', ['$scope', '$resource', 'editProductService'
 		$scope.prod.hideList = true;
 	}
 
-	$scope.setEditProduct = function (product){
-
-		editProductService.saveProductForEdit(product);
-		console.log(product);
+	$scope.editProduct = function (product){
+		console.log("Product Edited");
 	}
 
+	$scope.hideEdit = function(){
+		$scope.prod.showEdit = false;
+	}
+	$scope.showEdit = function(){
+		$scope.prod.showEdit = true;
+	}
 
 	$scope.showList = function(){
 		$scope.prod.hideList = false;
@@ -43,6 +47,7 @@ app.controller('productController', ['$scope', '$resource', 'editProductService'
 
 	$scope.orderBySKU = 'SKU';
 	$scope.orderByName = 'Product_Name';
+	$scope.hideEdit();
 	getInventory();
 	
 	

@@ -15,7 +15,6 @@ block navigation
 				a(href="/signout") Sign Out
 block heading
 	script(text="text/javascript", src="../js/controllers/product-controller.js")
-	script(text="text/javascript", src="../js/services/editProduct-service.js")
 block content
 	div#outerForm.panel.panel-primary(ng-controller="productController")
 		h4#mainHeading.panel.panel-heading
@@ -31,12 +30,10 @@ block content
 			div#formContainer.container-fluid
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/StockPhoto.jpg')
-					button#editProdButton.btn.btn-primary
-						a#editProdLink(ng-click='setEditProduct(prod)' href="/editProd" ) Set Product
-					button#editProdButton.btn.btn-primary
-						a#editProdLink(ng-click='getEditProduct()') Get Product
+					button#editProdButton.btn.btn-primary(ng-hide="prod.showEdit == true")
+						a#editProdLink(ng-click='showEdit()') Edit
 				div#prodForm.column
-					form#SKUSearch(class='form' autocomplete='off')
+					form#SKUSearch(class='form' autocomplete='off' ng-hide="prod.showEdit == true")
 								label SKU:
 								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='prod.searchSKU.SKU',  ng-change="showList()", ng-click="showList()", required, autofocus)
 								div(ng-hide= "prod.searchSKU.SKU == null || prod.hideList == true")
@@ -59,6 +56,20 @@ block content
 								input(type='text', ng-model="prod.locationBySKU" name='location', class='form-control', placeholder='Location',readonly)
 								//- button(class='btn btn-lg btn-primary btn-block', type='submit') Search
 								span.clearfix
+					form#editSKUProd(class='form' autocomplete='off' ng-show="prod.showEdit == true")
+								label SKU:
+								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='prod.searchSKU.SKU')
+								label Product Name:
+								input(type='text', ng-model="prod.NameBySKU" name='prodName', class='form-control nomargin', placeholder='Product Name')
+								label Product Description:
+								textarea#desc(type='text', ng-model="prod.DescBySKU" name='prodDesc', class='form-control', placeholder='Product Description')
+								label Quantity Available:
+								input(type='text', ng-model="prod.quantityBySKU" name='quantity', class='form-control', placeholder='Quantity Available')
+								label Location:
+								input(type='text', ng-model="prod.locationBySKU" name='location', class='form-control', placeholder='Location')
+								span.clearfix
+									button#editButtonGroup(class='btn btn-primary', type='submit') Submit
+									button#editButtonGroup(class='btn btn-primary', ng-click="hideEdit()") Cancel
 		div#searchNameForm.panel.panel-info(ng-show="Search === ! SKU")
 			h4.panel.panel-heading
 				| Search by Produt Name:
