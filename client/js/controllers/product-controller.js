@@ -1,7 +1,9 @@
 app.controller('productController', ['$scope', '$resource', function ($scope, $resource) {
 
 	$scope.prod={};
+	$scope.edited={};
 	$scope.prod.currentProd=null;
+	$scope.edited.inv=null;
 
 	var Inventory = $resource('/api/inventory/:id', {}, {update : {method : 'PUT'}});
 
@@ -20,6 +22,7 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 		$scope.prod.quantityBySKU = product.Quantity;
 		$scope.prod.locationBySKU = product.Product_Location;
 		$scope.prod.hideList = true;
+		$scope.edited = $scope.prod;
 	}
 
 	$scope.getProductByName = function (product){
@@ -33,7 +36,7 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 	}
 
 	$scope.restoreProduct = function () {
-		//console.log($scope.prod.currentProd);
+		console.log(JSON.stringify($scope.prod.currentProd));
 		$scope.prod.searchSKU.SKU = $scope.prod.currentProd.SKU;
 		$scope.prod.NameBySKU = $scope.prod.currentProd.Product_Name;
 		$scope.prod.DescBySKU = $scope.prod.currentProd.Product_Description;
@@ -42,16 +45,22 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 		$scope.prod.hideList = true;
 	}
 
-	$scope.verifyUpdate = function(product){
-
+	$scope.setEdit=function(){
+		$scope.edited.inv = $scope.prod.currentProd;
+		console.log('setEdit:' + JSON.stringify($scope.edited.inv));
 	}
 
 	$scope.updateProduct = function() {
-		console.log($scope.prod.currentProd._id);
-		var inventory = new Inventory($scope.prod.currentProd);
+		$scope.edited.inv.SKU = $scope.edited.searchSKU.SKU;
+		$scope.edited.inv.Product_Name = $scope.edited.NameBySKU;
+		$scope.edited.inv.Product_Description = $scope.edited.DescBySKU;
+		$scope.edited.inv.Quantity = $scope.edited.quantityBySKU;
+		$scope.edited.inv.Product_Location = $scope.edited.locationBySKU;
+		console.log('Edited: ' + JSON.stringify($scope.edited.inv));
+		console.log('Not Edited: ' + JSON.stringify($scope.prod.currentProd));
+		var inventory = new Inventory($scope.edited.inv);
 		//inventory._id = $scope.prod.currentProd._id;
-		inventory.$update({id : $scope.prod.currentProd._id}, inventory);
-		console.log("updateProduct -  Product Controller");
+		inventory.$update({id : $scope.edited.inv._id}, inventory);
 	}
 
 	$scope.hideEdit = function(){
