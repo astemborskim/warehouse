@@ -36,7 +36,7 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 	}
 
 	$scope.restoreProduct = function () {
-		console.log(JSON.stringify($scope.prod.currentProd));
+		//console.log(JSON.stringify($scope.prod.currentProd));
 		$scope.prod.searchSKU.SKU = $scope.prod.currentProd.SKU;
 		$scope.prod.NameBySKU = $scope.prod.currentProd.Product_Name;
 		$scope.prod.DescBySKU = $scope.prod.currentProd.Product_Description;
@@ -47,21 +47,29 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 
 	$scope.setEdit=function(){
 		$scope.edited.inv = $scope.prod.currentProd;
-		console.log('setEdit:' + JSON.stringify($scope.edited.inv));
+		$scope.edited.SKU = $scope.prod.searchSKU.SKU;
+		$scope.edited.Name = $scope.prod.NameBySKU;
+		$scope.edited.Desc = $scope.prod.DescBySKU;
+		$scope.edited.quantity = $scope.prod.quantityBySKU;
+		$scope.edited.locations = $scope.prod.locationBySKU;
+		//console.log('setEdit:' + JSON.stringify($scope.edited.inv));
 	}
 
 	$scope.updateProduct = function() {
-		$scope.edited.inv.SKU = $scope.edited.searchSKU.SKU;
-		$scope.edited.inv.Product_Name = $scope.edited.NameBySKU;
-		$scope.edited.inv.Product_Description = $scope.edited.DescBySKU;
-		$scope.edited.inv.Quantity = $scope.edited.quantityBySKU;
-		$scope.edited.inv.Product_Location = $scope.edited.locationBySKU;
-		console.log('Edited: ' + JSON.stringify($scope.edited.inv));
-		console.log('Not Edited: ' + JSON.stringify($scope.prod.currentProd));
+		//$scope.edited.inv = $scope.edited.searchSKU;
+		$scope.edited.inv.SKU = $scope.edited.SKU;
+		$scope.edited.inv.Product_Name = $scope.edited.Name;
+		$scope.edited.inv.Product_Description = $scope.edited.Desc;
+		$scope.edited.inv.Quantity = $scope.edited.quantity;
+		$scope.edited.inv.Product_Location = $scope.edited.locations;
+		//console.log('Edited: ' + JSON.stringify($scope.edited.inv));
+		//console.log('Not Edited: ' + JSON.stringify($scope.prod.currentProd));
 		var inventory = new Inventory($scope.edited.inv);
-		//inventory._id = $scope.prod.currentProd._id;
-		inventory.$update({id : $scope.edited.inv._id}, inventory);
-	}
+		//console.log('edited.inv._id: ' + $scope.edited.inv._id);
+		inventory.$update({id : $scope.edited.inv._id}, inventory, function (err, result){
+	 		if(err){};
+	    });
+	 }
 
 	$scope.hideEdit = function(){
 		$scope.prod.showEdit = false;

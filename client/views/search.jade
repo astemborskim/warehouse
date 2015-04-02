@@ -57,21 +57,23 @@ block content
 								input(type='text', ng-model="prod.quantityBySKU" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 								label Location:
 								input(type='text', ng-model="prod.locationBySKU" name='location', class='form-control', placeholder='Location',readonly)
-								//- button(class='btn btn-lg btn-primary btn-block', type='submit') Search
+								#message
+									if message
+										h2.text-center.error-message #{message}
 								span.clearfix
 					form#editSKUProd(class='form' autocomplete='off' ng-show="prod.showEdit == true")
 								label SKU:
-								input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='edited.searchSKU.SKU')
+								input(type='text', ng-model='edited.SKU', name='SKU', class='form-control', placeholder='SKU')
 								label Product Name:
-								input(type='text', ng-model="edited.NameBySKU" name='prodName', class='form-control nomargin', placeholder='Product Name')
+								input(type='text', ng-model="edited.Name" name='prodName', class='form-control nomargin', placeholder='Product Name')
 								label Product Description:
-								textarea#desc(type='text', ng-model="edited.DescBySKU" name='prodDesc', class='form-control', placeholder='Product Description')
+								textarea#desc(type='text', ng-model="edited.Desc" name='prodDesc', class='form-control', placeholder='Product Description')
 								label Quantity Available:
-								input(type='text', ng-model="edited.quantityBySKU" name='quantity', class='form-control', placeholder='Quantity Available')
+								input(type='text', ng-model="edited.quantity" name='quantity', class='form-control', placeholder='Quantity Available')
 								label Location:
-								input(type='text', ng-model="edited.locationBySKU" name='location', class='form-control', placeholder='Location')
+								input(type='text', ng-model="edited.locations" name='location', class='form-control', placeholder='Location')
 								span.clearfix
-									button#editButtonGroup(class='btn btn-primary', type='button', ng-click="updateProduct(edited);") Submit
+									button#editButtonGroup(class='btn btn-primary', type='button', ng-click="updateProduct(edited)" onclick="history.go(0)") Submit
 									button#editButtonGroup(class='btn btn-primary', type='button' ng-click="restoreProduct();hideEdit()") Cancel
 		div#searchNameForm.panel.panel-info(ng-show="Search === ! SKU")
 			h4.panel.panel-heading
