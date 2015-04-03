@@ -1,0 +1,1 @@
+db.products.find( { 'SKU' : { $exists : true } }).forEach( function(x) { x.SKU = ""+x.SKU; db.products.save(x);});
