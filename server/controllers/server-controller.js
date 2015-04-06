@@ -56,7 +56,7 @@ module.exports.editInventory = function(req, res){
             res.writeHead(404, {'Content-Type': 'text/plain'});
             throw err;
         }
-        req.flash('message','Product Updated Successfully!');
+        req.flash('message','Product Update Successful!');
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end();
     });

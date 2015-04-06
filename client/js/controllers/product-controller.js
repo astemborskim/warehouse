@@ -43,6 +43,7 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 		$scope.prod.quantityBySKU = $scope.prod.currentProd.Quantity;
 		$scope.prod.locationBySKU = $scope.prod.currentProd.Product_Location;
 		$scope.prod.hideList = true;
+
 	}
 
 	$scope.setEdit=function(){
@@ -53,6 +54,7 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 		$scope.edited.quantity = $scope.prod.quantityBySKU;
 		$scope.edited.locations = $scope.prod.locationBySKU;
 		//console.log('setEdit:' + JSON.stringify($scope.edited.inv));
+
 	}
 
 	$scope.updateProduct = function() {
@@ -69,6 +71,8 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 		inventory.$update({id : $scope.edited.inv._id}, inventory, function (err, result){
 	 		if(err){};
 	    });
+
+	    $scope.prod.hideMessage=false;
 	 }
 
 	$scope.hideEdit = function(){
@@ -80,6 +84,11 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 
 	$scope.showList = function(){
 		$scope.prod.hideList = false;
+		$scope.prod.hideMessage = true;
+	}
+
+	$scope.hideMessage= function(){
+		$scope.prod.hideMessage = true;
 	}
 
 	$scope.orderBySKU = 'SKU';

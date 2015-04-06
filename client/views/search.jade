@@ -57,7 +57,7 @@ block content
 								input(type='text', ng-model="prod.quantityBySKU" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 								label Location:
 								input(type='text', ng-model="prod.locationBySKU" name='location', class='form-control', placeholder='Location',readonly)
-								#message
+								#message(ng-hide="prod.hideMessage == true")
 									if message
 										h2.text-center.error-message #{message}
 								span.clearfix
