@@ -1,6 +1,9 @@
 {
   "name": "anidopt",
   "version": "0.0.1",
+  "scripts": {
+    "start": "node server.js"
+    },
   "dependencies": {
     "angular": "*",
     "bcrypt-nodejs": "0.0.3",
