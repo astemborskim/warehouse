@@ -1,0 +1,3 @@
+username,password,isAdmin
+admin,admin,true
+user,user,false
