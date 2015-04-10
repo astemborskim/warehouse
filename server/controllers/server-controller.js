@@ -34,6 +34,7 @@ module.exports.addProduct = function(req, res){
                     console.log('Error in Saving new product: '+err);  
                     throw err;  
                 }
+                req.flash('message', '');
                 req.flash('message','Product added successfully!');
                 //console.log('Product added successfully!');    
                 res.redirect('/addProd');
@@ -51,19 +52,16 @@ module.exports.getInventory = function(req, res){
 module.exports.editInventory = function(req, res){
     Product.update({_id : req.body._id}, req.body, function (err, results){
         if(err){
-            req.flash('message', 'Error Updating Product');
-            console.log('Error Updating Product: ' + err);
+            //req.flash('message', '');
+            //req.flash('message', 'Error Updating Product');
+            //console.log('Error Updating Product: ' + err);
             res.writeHead(404, {'Content-Type': 'text/plain'});
             throw err;
         }
-        req.flash('message','Product Update Successful!');
+        //req.flash('message', '');
+        //req.flash('message','Product Update Successful!');
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end();
     });
 
 };
-
-module.exports.getHome = function(req, res){
-    console.log('getHome Reached!');
-    res.redirect('/home');
-}

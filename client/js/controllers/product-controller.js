@@ -4,6 +4,7 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 	$scope.edited={};
 	$scope.prod.currentProd=null;
 	$scope.edited.inv=null;
+	$scope.prod.hideMessage = true;
 
 	var Inventory = $resource('/api/inventory/:id', {}, {update : {method : 'PUT'}});
 
@@ -46,6 +47,16 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 
 	}
 
+	$scope.restoreProduct = function(){
+		//console.log(JSON.stringify($scope.prod.currentProd));
+		$scope.prod.searchSKU.SKU = $scope.prod.currentProd.SKU;
+		$scope.prod.NameBySKU = $scope.prod.currentProd.Product_Name;
+		$scope.prod.DescBySKU = $scope.prod.currentProd.Product_Description;
+		$scope.prod.quantityBySKU = $scope.prod.currentProd.Quantity;
+		$scope.prod.locationBySKU = $scope.prod.currentProd.Product_Location;
+		$scope.prod.hideList = true;
+	}
+
 	$scope.setEdit=function(){
 		$scope.edited.inv = $scope.prod.currentProd;
 		$scope.edited.SKU = $scope.prod.searchSKU.SKU;
@@ -58,7 +69,10 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 	}
 
 	$scope.updateProduct = function() {
-		//$scope.edited.inv = $scope.edited.searchSKU;
+		
+		var editConfirm = confirm('Confirmation: Edit Product?');
+		if (editConfirm == true){
+			//$scope.edited.inv = $scope.edited.searchSKU;
 		$scope.edited.inv.SKU = $scope.edited.SKU;
 		$scope.edited.inv.Product_Name = $scope.edited.Name;
 		$scope.edited.inv.Product_Description = $scope.edited.Desc;
@@ -66,14 +80,28 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 		$scope.edited.inv.Product_Location = $scope.edited.locations;
 		//console.log('Edited: ' + JSON.stringify($scope.edited.inv));
 		//console.log('Not Edited: ' + JSON.stringify($scope.prod.currentProd));
-		var inventory = new Inventory($scope.edited.inv);
-		//console.log('edited.inv._id: ' + $scope.edited.inv._id);
-		inventory.$update({id : $scope.edited.inv._id}, inventory, function (err, result){
-	 		if(err){};
-	    });
+			var inventory = new Inventory($scope.edited.inv);
+			inventory.$update({id : $scope.edited.inv._id}, inventory, function (err, result){
+	 			if(err){console.log('ERROR!')}
+	    	});
 
-	    $scope.prod.hideMessage=false;
-	 }
+		refreshProduct();
+ 		$scope.prod.showEdit = false;
+ 		$scope.prod.hideMessage = false;
+		}
+		else{
+		
+		}		
+	}
+
+	refreshProduct = function(){
+		$scope.prod.searchSKU.SKU = $scope.edited.SKU;
+		$scope.prod.NameBySKU = $scope.edited.Name;
+		$scope.prod.DescBySKU = $scope.edited.Desc;
+		$scope.prod.quantityBySKU = $scope.edited.quantity;
+		$scope.prod.locationBySKU = $scope.edited.locations;
+	}
+
 
 	$scope.hideEdit = function(){
 		$scope.prod.showEdit = false;
@@ -95,7 +123,6 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 	$scope.orderByName = 'Product_Name';
 	$scope.hideEdit();
 	getInventory();
-	
-	
+
 }]);
 
