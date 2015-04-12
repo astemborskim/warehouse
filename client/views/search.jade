@@ -23,9 +23,9 @@ block content
 			| Edit Product
 		ul.nav.nav-tabs(ng-hide="prod.showEdit==true")
 			li(ng-class="{active:Search===SKU}")
-				a(ng-click="Search = SKU; loadSKUSearch()") SKU
+				a(ng-click="Search = SKU; resetForm()" ) SKU
 			li(ng-class="{active:Search===!SKU}")
-				a(ng-click="Search = ! SKU; loadNameSearch()") Product Name
+				a(ng-click="Search = ! SKU; resetForm()") Product Name
 		div#innerForm.panel.panel-info(ng-show='Search === SKU')
 			h4.panel.panel-heading(ng-hide="prod.showEdit==true")
 				| Search by SKU:
@@ -34,7 +34,7 @@ block content
 			div#formContainer.container-fluid
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/StockPhoto.jpg')
-					button#editProdButton.btn.btn-primary(ng-hide="prod.showEdit == true" ng-click='showEdit();setEdit()') Edit Item
+					button#editProdButton.btn.btn-primary(ng-hide="prod.showEdit == true || prod.showEditButton == false" ng-click='setEditbySKU(prod.searchSKU.SKU)') Edit Item
 				div#prodForm.column
 					form#SKUSearch(class='form' autocomplete='off' ng-hide="prod.showEdit == true")
 								label SKU:
@@ -72,18 +72,17 @@ block content
 								label Location:
 								input(type='text', ng-model="edited.locations" name='location', class='form-control', placeholder='Location')
 								span.clearfix
-									button#editButtonGroup(class='btn btn-primary', type='button', ng-click="updateProduct();") Submit
+									button#editButtonGroup(class='btn btn-primary', type='button', ng-click="updateProduct(edited.SKU, Search);") Submit
 									button#editButtonGroup(class='btn btn-primary', type='button' ng-click="restoreProduct();hideEdit()") Cancel
 		div#searchNameForm.panel.panel-info(ng-show="Search === ! SKU")
 			h4.panel.panel-heading
-				| Search by Produt Name:
+				| Search by Product Name:
 			div#formContainer.container-fluid
 				div#prodImg.column
 					img#productpic(class='thumbnail', src='./img/StockPhoto.jpg')
-					button#editProdButton.btn.btn-primary
-						a#editProdLink(href='/home') Edit Item
+					button#editProdButton.btn.btn-primary(ng-hide="prod.showEdit == true || prod.showEditButton == false" ng-click='setEditbyName(prod.SKUByName)') Edit Item
 				div#prodForm
-					form#NameSearch(class='form' autocomplete='off')
+					form#NameSearch(class='form' autocomplete='off' ng-hide="prod.showEdit == true")
 								label Product Name:
 								input(type='text', name='prodName', class='form-control', placeholder='Product Name', ng-model="prod.searchName.Product_Name", ng-change="showList()", ng-click="showList()", required, autofocus)
 								div(ng-hide="prod.searchName.Product_Name == null || prod.hideList == true")
@@ -106,5 +105,19 @@ block content
 								input(type='text', ng-model="prod.locationByName" name='location', class='form-control', placeholder='Location',readonly)
 								//- button(class='btn btn-lg btn-primary btn-block', type='submit') Search
 								span.clearfix
+					form#editSKUProd(class='form' autocomplete='off' ng-show="prod.showEdit == true")
+								label SKU:
+								input(type='text', ng-model='edited.SKU', name='SKU', class='form-control', placeholder='SKU')
+								label Product Name:
+								input(type='text', ng-model="edited.Name" name='prodName', class='form-control nomargin', placeholder='Product Name')
+								label Product Description:
+								textarea#desc(type='text', ng-model="edited.Desc" name='prodDesc', class='form-control', placeholder='Product Description')
+								label Quantity Available:
+								input(type='text', ng-model="edited.quantity" name='quantity', class='form-control', placeholder='Quantity Available')
+								label Location:
+								input(type='text', ng-model="edited.locations" name='location', class='form-control', placeholder='Location')
+								span.clearfix
+									button#editButtonGroup(class='btn btn-primary', type='button', ng-click="updateProduct(edited.SKU, Search);") Submit
+									button#editButtonGroup(class='btn btn-primary', type='button' ng-click="restoreProduct();hideEdit()") Cancel
 block footer	
 	p &copy Acme Warehouse Managment Systems 2015
