@@ -135,7 +135,6 @@ app.controller('productController', ['$scope', '$resource', function ($scope, $r
 	}
 
 	refreshProduct = function(){
-		console.log($scope.prod.searchType);
 		if($scope.prod.searchType == 'SKU'){
 			$scope.prod.searchSKU.SKU = $scope.edited.SKU;
 			$scope.prod.NameBySKU = $scope.edited.Name;

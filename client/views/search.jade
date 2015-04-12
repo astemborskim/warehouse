@@ -103,7 +103,8 @@ block content
 								input(type='text', ng-model="prod.quantityByName" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 								label Location:
 								input(type='text', ng-model="prod.locationByName" name='location', class='form-control', placeholder='Location',readonly)
-								//- button(class='btn btn-lg btn-primary btn-block', type='submit') Search
+								#message(ng-hide="prod.hideMessage == true")
+									h2.text-center.error-message Product Update Successful!
 								span.clearfix
 					form#editSKUProd(class='form' autocomplete='off' ng-show="prod.showEdit == true")
 								label SKU:
