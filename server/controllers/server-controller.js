@@ -70,7 +70,14 @@ module.exports.getOneItem = function(req, res){
     console.log(req.params);
     Product.findOne({'SKU' : req.params._id}, function (err, result){
         if(err){console.log(err)};
-        console.log(result);
+        
+        if(result == null){
+            console.log('Item with specified SKU does not exist: ' + req.params._id);
+        }
+        else{
+            console.log(result);
+        }
         res.json(result);
+        
     })
 }
