@@ -12,15 +12,20 @@ block navigation
 			li#signout
 				a(href='/signout') Sign Out
 block heading
+	script(text="text/javascript", src="../js/controllers/home-controller.js")
 block content
 	div#outerForm.panel.panel-primary
 		h4#mainHeading.panel.panel-heading
-			| Home Page - Give this a Title
+			| Home Page
 		div#innerForm.panel.panel-info
 			h4.panel.panel-heading
-				| Show user Options:
+				| Scan SKU:
 			div#formContainer.container-fluid
-				p Put some Content in here!
+				div#prodForm.column
+					form#SKUSearch(ng-controller="homeController", class='form' autocomplete='off')
+						label SKU:
+						input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='SKUNum', required, autofocus)
+						button(class='btn btn-primary', type='submit', ng-click="findProduct(SKUNum);") Submit			
 	#message
 		if message
 			h2.text-center.error-message #{message}	

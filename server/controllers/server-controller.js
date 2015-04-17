@@ -65,3 +65,12 @@ module.exports.editInventory = function(req, res){
     });
 
 };
+
+module.exports.getOneItem = function(req, res){
+    console.log(req.params);
+    Product.findOne({'SKU' : req.params._id}, function (err, result){
+        if(err){console.log(err)};
+        console.log(result);
+        res.json(result);
+    })
+}
