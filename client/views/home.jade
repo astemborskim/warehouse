@@ -14,20 +14,31 @@ block navigation
 block heading
 	script(text="text/javascript", src="../js/controllers/home-controller.js")
 block content
-	div#outerForm.panel.panel-primary
+	div#outerForm.panel.panel-primary(ng-controller="homeController")
 		h4#mainHeading.panel.panel-heading
 			| Home Page
 		div#innerForm.panel.panel-info
 			h4.panel.panel-heading
-				| Scan SKU:
+				| Scan SKU: 
 			div#formContainer.container-fluid
 				div#prodForm.column
-					form#SKUSearch(ng-controller="homeController", class='form' autocomplete='off')
+					form#SKUSearch(class='form' autocomplete='off' ng-hide='showResults == true')
 						label SKU:
-						input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='SKUNum', required, autofocus)
-						button(class='btn btn-primary', type='submit', ng-click="findProduct(SKUNum);") Submit			
-	#message
-		if message
-			h2.text-center.error-message #{message}	
+						input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='SKU', required, autofocus)
+						button(class='btn btn-primary', type='submit', ng-click="findProduct(SKU);") Submit	
+					form#SKUSearch(class='form' autocomplete='off' ng-show='showResults == true')
+						label SKU:
+						input(type='text', ng-model='oneItem.SKU', name='SKU', class='form-control', placeholder='SKU', readonly)
+						label Product Name:
+						input(type='text', ng-model="oneItem.Product_Name" name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
+						label Product Description:
+						textarea#desc(type='text', ng-model="oneItem.Product_Description" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
+						label Quantity Available:
+						input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
+						label Location:
+						input(type='text', ng-model="oneItem.Product_Location" name='location', class='form-control', placeholder='Location',readonly)
+						span.clearfix		
+			#message(ng-show="noResults == true")
+				h2.text-center.error-message No product found!	
 block footer	
 	p &copy Acme Warehouse Managment Systems 2015
