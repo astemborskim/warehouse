@@ -4,7 +4,7 @@ block navigation
 	div#navbar.navbar.navbar-default
 		ul.nav.nav-pills
 			li.active
-				a(href='/home') Home
+				a(href='/home') Scan
 			li
 				a(href='/search') Product search
 			li
@@ -15,11 +15,26 @@ block heading
 	script(text="text/javascript", src="../js/controllers/home-controller.js")
 block content
 	div#outerForm.panel.panel-primary(ng-controller="homeController")
-		h4#mainHeading.panel.panel-heading
-			| Home Page
+		h4#mainHeading.panel.panel-heading(ng-show="showFind==true")
+			| Scan SKU to Find Product
+		h4#mainHeading.panel.panel-heading(ng-show="showAdd==true")
+			| Scan SKU to Add Quantity
+		h4#mainHeading.panel.panel-heading(ng-show="showRemove==true")
+			| Scan SKU to Remove Quantity
+		ul.nav.nav-tabs
+			li(ng-class="{active:myForm==='findForm'}")
+				a(ng-click="findForm()") Find Product
+			li(ng-class="{active:myForm==='addForm'}")
+				a(ng-click="addForm()") Add Quantity
+			li(ng-class="{active:myForm==='removeForm'}")
+				a(ng-click="removeForm()") Remove Quantity
 		div#innerForm.panel.panel-info
-			h4.panel.panel-heading
-				| Scan SKU: 
+			h4.panel.panel-heading(ng-show="showFind==true")
+				| Find by SKU:
+			h4.panel.panel-heading(ng-show="showAdd==true")
+				| Add Quantity:
+			h4.panel.panel-heading(ng-show="showRemove==true")
+				| Remove Quantity:
 			div#formContainer.container-fluid
 				div#prodForm.column
 					form#SKUSearch(class='form' autocomplete='off' ng-hide='showResults == true')
@@ -37,8 +52,12 @@ block content
 						input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 						label Location:
 						input(type='text', ng-model="oneItem.Product_Location" name='location', class='form-control', placeholder='Location',readonly)
-						span.clearfix		
+						span.clearfix
+							button#editButtonGroup(class='btn btn-primary', type='button', ng-click="reset()") OK		
 			#message(ng-show="noResults == true")
 				h2.text-center.error-message No product found!	
+			#message(ng-hide='noResults == true || showResults == true')
+				if message
+					h2.text-center.error-message #{message}	
 block footer	
 	p &copy Acme Warehouse Managment Systems 2015

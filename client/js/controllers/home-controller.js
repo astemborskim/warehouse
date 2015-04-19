@@ -3,6 +3,10 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 	$scope.oneItem ={};
 	$scope.showResults = false;
 	$scope.noResults = false;
+	$scope.myForm = "findForm"; //default tab
+	$scope.showFind = true; //defaults
+	$scope.showAdd = false;
+	$scope.showRemove = false;
 
 	var Item = $resource('/api/item/:id', {'id' : '@SKU'});//, {update : {method : 'PUT'}});
 
@@ -30,5 +34,33 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 			}
 			
 		})
+	}
+
+	$scope.reset = function(){
+		window.location = "../home"
+	}
+
+	$scope.findForm = function(){
+		console.log('FIND');
+		$scope.myForm = "findForm";
+		$scope.showFind = true;
+		$scope.showAdd = false;
+		$scope.showRemove = false;
+	}
+
+	$scope.addForm = function(){
+		console.log('ADD');
+		$scope.myForm = "addForm";
+		$scope.showFind = false;
+		$scope.showAdd = true;
+		$scope.showRemove = false;
+	}
+
+	$scope.removeForm = function(){
+		console.log('REMOVE');
+		$scope.myForm = "removeForm";
+		$scope.showFind = false;
+		$scope.showAdd = false;
+		$scope.showRemove = true;
 	}
 }]);
