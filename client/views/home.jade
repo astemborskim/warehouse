@@ -36,7 +36,7 @@ block content
 			h4.panel.panel-heading(ng-show="showRemove==true")
 				| Remove Quantity:
 			div#formContainer.container-fluid
-				div#prodForm.column
+				div#prodForm.column()
 					form#SKUSearch(class='form' autocomplete='off' ng-hide='showResults == true')
 						label SKU:
 						input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='SKU', required, autofocus)
@@ -48,12 +48,24 @@ block content
 						input(type='text', ng-model="oneItem.Product_Name" name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
 						label Product Description:
 						textarea#desc(type='text', ng-model="oneItem.Product_Description" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
-						label Quantity Available:
-						input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
+						label(ng-hide="showAdd==true||showRemove==true") Quantity Available:
+						input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available', ng-hide="showAdd==true||showRemove==true" ,readonly)
 						label Location:
 						input(type='text', ng-model="oneItem.Product_Location" name='location', class='form-control', placeholder='Location',readonly)
+						button#editButtonGroup(class='btn btn-primary', type='button', ng-click="reset()" ng-show='showFind==true') OK
 						span.clearfix
-							button#editButtonGroup(class='btn btn-primary', type='button', ng-click="reset()") OK		
+				div#prodForm.column(ng-show="showAdd==true")
+					label Current Quantity:
+					input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
+					label Quantity to Add:
+					input(type='text', ng-model="oneItem.addQuantity" name='newQuantity', class='form-control', placeholder='Quantity to Add')
+					button#editButtonGroup(class='btn btn-primary', type='button', ng-click="reset()" ng-show='showAdd==true') Add
+				div#prodForm.column(ng-show="showRemove==true")
+					label Current Quantity:
+					input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
+					label Quantity to Remove:
+					input(type='text', ng-model="oneItem.addQuantity" name='removeQuantity', class='form-control', placeholder='Quantity to Remove')
+					button#editButtonGroup(class='btn btn-primary', type='button', ng-click="reset()" ng-show='showRemove==true') Remove
 			#message(ng-show="noResults == true")
 				h2.text-center.error-message No product found!	
 			#message(ng-hide='noResults == true || showResults == true')
