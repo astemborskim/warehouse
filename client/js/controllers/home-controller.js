@@ -1,6 +1,7 @@
 app.controller('homeController', ['$scope', '$resource', function ($scope, $resource) {
 
 	$scope.oneItem ={};
+	$scope.temp = {};
 	$scope.showResults = false;
 	$scope.noResults = false;
 	$scope.myForm = "findForm"; //default tab
@@ -8,7 +9,7 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 	$scope.showAdd = false;
 	$scope.showRemove = false;
 
-	var Item = $resource('/api/item/:id', {'id' : '@SKU'});//, {update : {method : 'PUT'}});
+	var Item = $resource('/api/item/:id', {}, {update : {method : 'PUT'}});
 
 	$scope.findProduct = function(SKU){
 	
@@ -29,11 +30,44 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 				$scope.oneItem.Product_Description = results.Product_Description;
 				$scope.oneItem.Product_Location = results.Product_Location;
 				$scope.oneItem.Quantity = results.Quantity;
-				
 				console.log($scope.oneItem);	
 			}
 			
 		})
+	}
+
+	$scope.addQuantity = function(){
+		var currentQuantity = parseInt($scope.oneItem.Quantity);
+		var additionalQuantity = parseInt($scope.temp.quantityToAdd);
+		var newQuantity = currentQuantity + additionalQuantity;
+		$scope.oneItem.Quantity = newQuantity.toString();
+		//console.log(newQuantity);
+		var item = new Item($scope.oneItem);
+			console.log('oneitem: ' + JSON.stringify($scope.oneItem));
+			item.$update({id : $scope.oneItem.SKU}, $scope.oneItem, function (err, result){
+	 			if(err){console.log('ERROR!')}
+	 			else{
+	 				console.log("WORKED!");
+	 					//$scope.findProduct($scope.oneItem.SKU);
+	 			}
+	    	});
+	}
+
+	$scope.removeQuantity = function(){
+		var currentQuantity = parseInt($scope.oneItem.Quantity);
+		var removeQuantity = parseInt($scope.temp.quantityToRemove);
+		var newQuantity = currentQuantity - removeQuantity;
+		$scope.oneItem.Quantity = newQuantity.toString();
+		//console.log(newQuantity);
+		var item = new Item($scope.oneItem);
+			console.log('oneitem: ' + JSON.stringify($scope.oneItem));
+			item.$update({id : $scope.oneItem.SKU}, $scope.oneItem, function (err, result){
+	 			if(err){console.log('ERROR!')}
+	 			else{
+	 				console.log("WORKED!");
+	 					//$scope.findProduct($scope.oneItem.SKU);
+	 			}
+	    	});
 	}
 
 	$scope.reset = function(){

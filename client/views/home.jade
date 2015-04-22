@@ -9,6 +9,8 @@ block navigation
 				a(href='/search') Product search
 			li
 				a(href='/addProd') Add Inventory
+			li#user
+				| Signed in as: #{username}
 			li#signout
 				a(href='/signout') Sign Out
 block heading
@@ -58,14 +60,14 @@ block content
 					label Current Quantity:
 					input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 					label Quantity to Add:
-					input(type='text', ng-model="oneItem.addQuantity" name='newQuantity', class='form-control', placeholder='Quantity to Add')
-					button#editButtonGroup(class='btn btn-primary', type='button', ng-click="reset()" ng-show='showAdd==true') Add
+					input(type='text', ng-model="temp.quantityToAdd" name='addQuantity', class='form-control', placeholder='Quantity to Add')
+					button#editButtonGroup(class='btn btn-primary', type='button', ng-click="addQuantity()" ng-show='showAdd==true') Add
 				div#prodForm.column(ng-show="showRemove==true")
 					label Current Quantity:
 					input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 					label Quantity to Remove:
-					input(type='text', ng-model="oneItem.addQuantity" name='removeQuantity', class='form-control', placeholder='Quantity to Remove')
-					button#editButtonGroup(class='btn btn-primary', type='button', ng-click="reset()" ng-show='showRemove==true') Remove
+					input(type='text', ng-model="temp.quantityToRemove" name='removeQuantity', class='form-control', placeholder='Quantity to Remove')
+					button#editButtonGroup(class='btn btn-primary', type='button', ng-click="removeQuantity()" ng-show='showRemove==true') Remove
 			#message(ng-show="noResults == true")
 				h2.text-center.error-message No product found!	
 			#message(ng-hide='noResults == true || showResults == true')

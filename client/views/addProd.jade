@@ -9,6 +9,8 @@ block navigation
 				a(href='/search') Product Search
 			li.active
 				a(href='/addProd') Add Inventory
+			li#user
+				| Signed in as: #{username}
 			li#signout
 				a(href="/signout") Sign Out
 block heading

@@ -67,7 +67,7 @@ module.exports.editInventory = function(req, res){
 };
 
 module.exports.getOneItem = function(req, res){
-    console.log(req.params);
+    //console.log(req.params);
     Product.findOne({'SKU' : req.params._id}, function (err, result){
         if(err){console.log(err)};
         
@@ -75,9 +75,24 @@ module.exports.getOneItem = function(req, res){
             console.log('Item with specified SKU does not exist: ' + req.params._id);
         }
         else{
-            console.log(result);
+            //console.log(result);
         }
         res.json(result);
         
     })
 }
+
+module.exports.updateItem = function (req, res) {
+    console.log('Body: ' + JSON.stringify(req.body));
+    console.log('Params: ' + JSON.stringify(req.params));
+    Product.update({'SKU' : req.params._id}, req.body, function (err, results){
+        if(err){console.log('ERROR: ' + err)};
+        if(results == null){
+            console.log('Item with specified SKU does not exist: ' + req.params._id);
+        }
+        else{
+            console.log(results);
+        }
+        res.json(results);
+    })
+};

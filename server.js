@@ -50,6 +50,7 @@ app.post('/api/addProd', serverController.addProduct); //add new product
 app.get('/api/inventory', serverController.getInventory); //get all products
 app.put('/api/inventory/:_id', serverController.editInventory); //edit a single product
 app.get('/api/item/:_id', serverController.getOneItem); //git one product by SKU
+app.put('/api/item/:_id', serverController.updateItem); //git one product by SKU
 
 
 //Start server on port 3000
