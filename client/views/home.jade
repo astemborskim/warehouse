@@ -38,11 +38,12 @@ block content
 			h4.panel.panel-heading(ng-show="showRemove==true")
 				| Remove Quantity:
 			div#formContainer.container-fluid
-				div#prodForm.column()
+				div#prodForm.column
 					form#SKUSearch(class='form' autocomplete='off' ng-hide='showResults == true')
 						label SKU:
 						input(type='text', name='SKU', class='form-control', placeholder='SKU', ng-model='SKU', required, autofocus)
-						button(class='btn btn-primary', type='submit', ng-click="findProduct(SKU);") Submit	
+						button#Buttons(class='btn btn-primary', type='submit', ng-click="findProduct(SKU)") Submit
+						button#Buttons(class='btn btn-primary', type='button', ng-click="reset()") Cancel
 					form#SKUSearch(class='form' autocomplete='off' ng-show='showResults == true')
 						label SKU:
 						input(type='text', ng-model='oneItem.SKU', name='SKU', class='form-control', placeholder='SKU', readonly)
@@ -51,23 +52,34 @@ block content
 						label Product Description:
 						textarea#desc(type='text', ng-model="oneItem.Product_Description" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
 						label(ng-hide="showAdd==true||showRemove==true") Quantity Available:
-						input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available', ng-hide="showAdd==true||showRemove==true" ,readonly)
+						div.input-group
+							input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available', ng-hide="showAdd==true||showRemove==true" ,readonly)
+							span.input-group-btn
+								button.btn.btn-default(type="button")
+									span#AddRemoveGlyph.glyphicon.glyphicon-plus
+							span.input-group-btn
+								button.btn.btn-default(type="button")
+									span#AddRemoveGlyph.glyphicon.glyphicon-minus
 						label Location:
 						input(type='text', ng-model="oneItem.Product_Location" name='location', class='form-control', placeholder='Location',readonly)
-						button#editButtonGroup(class='btn btn-primary', type='button', ng-click="reset()" ng-show='showFind==true') OK
+						button#ButtonCenter(class='btn btn-primary', type='button', ng-click="reset()" ng-show='showFind==true') OK
 						span.clearfix
-				div#prodForm.column(ng-show="showAdd==true")
+				div#prodForm.well.well-lg(ng-show="showAdd==true && showResults == true")
 					label Current Quantity:
 					input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 					label Quantity to Add:
 					input(type='text', ng-model="temp.quantityToAdd" name='addQuantity', class='form-control', placeholder='Quantity to Add')
-					button#editButtonGroup(class='btn btn-primary', type='button', ng-click="addQuantity()" ng-show='showAdd==true') Add
-				div#prodForm.column(ng-show="showRemove==true")
+					span
+					button#Buttons(class='btn btn-primary', type='button', ng-click="addQuantity()") Add
+					button#Buttons(class='btn btn-primary', type='button', ng-click="reset()") Cancel
+					span
+				div#prodForm.column(ng-show="showRemove==true && showResults == true")
 					label Current Quantity:
 					input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
 					label Quantity to Remove:
 					input(type='text', ng-model="temp.quantityToRemove" name='removeQuantity', class='form-control', placeholder='Quantity to Remove')
-					button#editButtonGroup(class='btn btn-primary', type='button', ng-click="removeQuantity()" ng-show='showRemove==true') Remove
+					button#Buttons(class='btn btn-primary', type='button', ng-click="removeQuantity()") Remove
+					button#Buttons(class='btn btn-primary', type='button', ng-click="reset()") Cancel
 			#message(ng-show="noResults == true")
 				h2.text-center.error-message No product found!	
 			#message(ng-hide='noResults == true || showResults == true')
