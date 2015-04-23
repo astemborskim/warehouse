@@ -17,21 +17,10 @@ block heading
 	script(text="text/javascript", src="../js/controllers/home-controller.js")
 block content
 	div#outerForm.panel.panel-primary(ng-controller="homeController")
-		h4#mainHeading.panel.panel-heading(ng-show="showFind==true")
-			| Scan SKU to Find Product
-		h4#mainHeading.panel.panel-heading(ng-show="showAdd==true")
-			| Scan SKU to Add Quantity
-		h4#mainHeading.panel.panel-heading(ng-show="showRemove==true")
-			| Scan SKU to Remove Quantity
-		ul.nav.nav-tabs
-			li(ng-class="{active:myForm==='findForm'}")
-				a(ng-click="findForm()") Find Product
-			li(ng-class="{active:myForm==='addForm'}")
-				a(ng-click="addForm()") Add Quantity
-			li(ng-class="{active:myForm==='removeForm'}")
-				a(ng-click="removeForm()") Remove Quantity
+		h4#mainHeading.panel.panel-heading
+			| Find and Modify Product
 		div#innerForm.panel.panel-info
-			h4.panel.panel-heading(ng-show="showFind==true")
+			h4.panel.panel-heading(ng-show="showFind==true&&showAdd==false&&showRemove==false")
 				| Find by SKU:
 			h4.panel.panel-heading(ng-show="showAdd==true")
 				| Add Quantity:
@@ -46,24 +35,49 @@ block content
 						button#Buttons(class='btn btn-primary', type='button', ng-click="reset()") Cancel
 					form#SKUSearch(class='form' autocomplete='off' ng-show='showResults == true')
 						label SKU:
-						input(type='text', ng-model='oneItem.SKU', name='SKU', class='form-control', placeholder='SKU', readonly)
+						div.input-group(ng-hide="edit.editSKU==true")
+							input(type='text', ng-model='oneItem.SKU', name='SKU', class='form-control', placeholder='SKU', readonly)
+							span.input-group-btn
+								button.btn.btn-default(type="button" ng-click="editSKU()") Edit
+						div.input-group(ng-show="edit.editSKU==true")
+							input(type='text', ng-model='oneItem.SKU', name='SKU', class='form-control', placeholder='SKU')
+							span.input-group-btn
+								button.btn.btn-default(type="button" ng-click="cancelEdit()") Cancel
 						label Product Name:
-						input(type='text', ng-model="oneItem.Product_Name" name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
+						div.input-group(ng-hide="edit.editName==true")
+							input(type='text', ng-model="oneItem.Product_Name" name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
+							span.input-group-btn
+								button.btn.btn-default(type="button" ng-click="editName()") Edit
+						div.input-group(ng-show="edit.editName==true")
+							input(type='text', ng-model="oneItem.Product_Name" name='prodName', class='form-control nomargin', placeholder='Product Name')
+							span.input-group-btn
+								button.btn.btn-default(type="button" ng-click="cancelEdit()") Cancel
 						label Product Description:
-						textarea#desc(type='text', ng-model="oneItem.Product_Description" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
+						div.input-group(ng-hide="edit.editDesc==true")
+							textarea#desc(type='text', ng-model="oneItem.Product_Description" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
+							span.input-group-btn
+								button.btn.btn-default(type="button" ng-click="editDesc()") Edit
+						div.input-group(ng-show="edit.editDesc==true")
+							textarea#desc(type='text', ng-model="oneItem.Product_Description" name='prodDesc', class='form-control', placeholder='Product Description')
+							span.input-group-btn
+								button.btn.btn-default(type="button" ng-click="cancelEdit()") Cancel
+						label Location:
+						div.input-group(ng-hide="edit.editLocation==true")
+							input(type='text', ng-model="oneItem.Product_Location" name='location', class='form-control', placeholder='Location',readonly)
+							span.input-group-btn
+								button.btn.btn-default(type="button" ng-click="editLocation()") Edit	
 						label(ng-hide="showAdd==true||showRemove==true") Quantity Available:
-						div.input-group
+						div.input-group(ng-hide="showAdd==true||showRemove==true")
 							input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available', ng-hide="showAdd==true||showRemove==true" ,readonly)
 							span.input-group-btn
-								button.btn.btn-default(type="button")
+								button.btn.btn-default(type="button" ng-click="addForm()")
 									span#AddRemoveGlyph.glyphicon.glyphicon-plus
 							span.input-group-btn
-								button.btn.btn-default(type="button")
+								button.btn.btn-default(type="button" ng-click='removeForm()')
 									span#AddRemoveGlyph.glyphicon.glyphicon-minus
-						label Location:
-						input(type='text', ng-model="oneItem.Product_Location" name='location', class='form-control', placeholder='Location',readonly)
-						button#ButtonCenter(class='btn btn-primary', type='button', ng-click="reset()" ng-show='showFind==true') OK
-						span.clearfix
+						button#ButtonCenter(class='btn btn-primary', type='button', ng-click="reset()" ng-hide='edit.editSKU==true||edit.editName==true||edit.editDesc==true||edit.editLocation==true||showAdd==true||showRemove==true') OK
+						button#ButtonCenter(class='btn btn-primary', type='button', ng-click="reset()" ng-show='edit.editSKU==true||edit.editName==true||edit.editDesc==true||edit.editLocation==true') Submit
+						button#ButtonCenter(class='btn btn-primary', type='button', ng-click="reset()" ng-hide='showAdd==true||showRemove==true') Cancel
 				div#prodForm.well.well-lg(ng-show="showAdd==true && showResults == true")
 					label Current Quantity:
 					input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
@@ -80,6 +94,7 @@ block content
 					input(type='text', ng-model="temp.quantityToRemove" name='removeQuantity', class='form-control', placeholder='Quantity to Remove')
 					button#Buttons(class='btn btn-primary', type='button', ng-click="removeQuantity()") Remove
 					button#Buttons(class='btn btn-primary', type='button', ng-click="reset()") Cancel
+				span.clearfix
 			#message(ng-show="noResults == true")
 				h2.text-center.error-message No product found!	
 			#message(ng-hide='noResults == true || showResults == true')

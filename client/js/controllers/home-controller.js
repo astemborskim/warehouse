@@ -2,6 +2,7 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 
 	$scope.oneItem ={};
 	$scope.temp = {};
+	$scope.edit = {};
 	$scope.showResults = false;
 	$scope.noResults = false;
 	$scope.myForm = "findForm"; //default tab
@@ -43,14 +44,11 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 		$scope.oneItem.Quantity = newQuantity.toString();
 		//console.log(newQuantity);
 		var item = new Item($scope.oneItem);
-			console.log('oneitem: ' + JSON.stringify($scope.oneItem));
+			//console.log('oneitem: ' + JSON.stringify($scope.oneItem));
 			item.$update({id : $scope.oneItem.SKU}, $scope.oneItem, function (err, result){
 	 			if(err){console.log('ERROR!')}
-	 			else{
-	 				console.log("WORKED!");
-	 					//$scope.findProduct($scope.oneItem.SKU);
-	 			}
 	    	});
+	    	$scope.findForm();
 	}
 
 	$scope.removeQuantity = function(){
@@ -60,14 +58,11 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 		$scope.oneItem.Quantity = newQuantity.toString();
 		//console.log(newQuantity);
 		var item = new Item($scope.oneItem);
-			console.log('oneitem: ' + JSON.stringify($scope.oneItem));
+			//console.log('oneitem: ' + JSON.stringify($scope.oneItem));
 			item.$update({id : $scope.oneItem.SKU}, $scope.oneItem, function (err, result){
 	 			if(err){console.log('ERROR!')}
-	 			else{
-	 				console.log("WORKED!");
-	 					//$scope.findProduct($scope.oneItem.SKU);
-	 			}
 	    	});
+	    	$scope.findForm();
 	}
 
 	$scope.reset = function(){
@@ -85,7 +80,7 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 	$scope.addForm = function(){
 		console.log('ADD');
 		$scope.myForm = "addForm";
-		$scope.showFind = false;
+		$scope.showFind = true;
 		$scope.showAdd = true;
 		$scope.showRemove = false;
 	}
@@ -93,8 +88,36 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 	$scope.removeForm = function(){
 		console.log('REMOVE');
 		$scope.myForm = "removeForm";
-		$scope.showFind = false;
+		$scope.showFind = true;
 		$scope.showAdd = false;
 		$scope.showRemove = true;
 	}
+
+	$scope.editSKU = function(){
+		$scope.edit.editSKU = true;
+	}
+
+	$scope.editName = function(){
+		$scope.edit.editName = true;
+	}
+
+	$scope.editDesc = function(){
+		$scope.edit.editDesc = true;
+	}
+
+	$scope.editLocation = function(){
+		$scope.edit.editLocation = true;
+	}
+
+	$scope.cancelEdit = function(){
+		$scope.edit.editSKU = false;
+		$scope.edit.editName = false;
+		$scope.edit.editDesc = false;
+		$scope.edit.editLocation = false;
+
+	}
+
+
+
+
 }]);
