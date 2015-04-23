@@ -37,35 +37,39 @@ block content
 						label SKU:
 						div.input-group(ng-hide="edit.editSKU==true")
 							input(type='text', ng-model='oneItem.SKU', name='SKU', class='form-control', placeholder='SKU', readonly)
-							span.input-group-btn
-								button.btn.btn-default(type="button" ng-click="editSKU()") Edit
+							span.input-group-btn()
+								button.btn.btn-default(type="button" ng-click="editSKU()" ng-disabled="showAdd==true||showRemove==true") Edit
 						div.input-group(ng-show="edit.editSKU==true")
 							input(type='text', ng-model='oneItem.SKU', name='SKU', class='form-control', placeholder='SKU')
 							span.input-group-btn
-								button.btn.btn-default(type="button" ng-click="cancelEdit()") Cancel
+								button.btn.btn-default(type="button" ng-click="cancelSKUEdit()") Cancel
 						label Product Name:
 						div.input-group(ng-hide="edit.editName==true")
 							input(type='text', ng-model="oneItem.Product_Name" name='prodName', class='form-control nomargin', placeholder='Product Name', readonly)
 							span.input-group-btn
-								button.btn.btn-default(type="button" ng-click="editName()") Edit
+								button.btn.btn-default(type="button" ng-click="editName()" ng-disabled="showAdd==true||showRemove==true") Edit
 						div.input-group(ng-show="edit.editName==true")
 							input(type='text', ng-model="oneItem.Product_Name" name='prodName', class='form-control nomargin', placeholder='Product Name')
 							span.input-group-btn
-								button.btn.btn-default(type="button" ng-click="cancelEdit()") Cancel
+								button.btn.btn-default(type="button" ng-click="cancelNameEdit()") Cancel
 						label Product Description:
 						div.input-group(ng-hide="edit.editDesc==true")
 							textarea#desc(type='text', ng-model="oneItem.Product_Description" name='prodDesc', class='form-control', placeholder='Product Description',readonly)
 							span.input-group-btn
-								button.btn.btn-default(type="button" ng-click="editDesc()") Edit
+								button.btn.btn-default(type="button" ng-click="editDesc()" ng-disabled="showAdd==true||showRemove==true") Edit
 						div.input-group(ng-show="edit.editDesc==true")
 							textarea#desc(type='text', ng-model="oneItem.Product_Description" name='prodDesc', class='form-control', placeholder='Product Description')
 							span.input-group-btn
-								button.btn.btn-default(type="button" ng-click="cancelEdit()") Cancel
+								button.btn.btn-default(type="button" ng-click="cancelDescEdit()") Cancel
 						label Location:
 						div.input-group(ng-hide="edit.editLocation==true")
 							input(type='text', ng-model="oneItem.Product_Location" name='location', class='form-control', placeholder='Location',readonly)
 							span.input-group-btn
-								button.btn.btn-default(type="button" ng-click="editLocation()") Edit	
+								button.btn.btn-default(type="button" ng-click="editLocation()" ng-disabled="showAdd==true||showRemove==true") Edit
+						div.input-group(ng-show="edit.editLocation==true")
+							input(type='text', ng-model="oneItem.Product_Location" name='location', class='form-control', placeholder='Location')
+							span.input-group-btn
+								button.btn.btn-default(type="button" ng-click="cancelLocationEdit()") Cancel		
 						label(ng-hide="showAdd==true||showRemove==true") Quantity Available:
 						div.input-group(ng-hide="showAdd==true||showRemove==true")
 							input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available', ng-hide="showAdd==true||showRemove==true" ,readonly)
@@ -76,8 +80,8 @@ block content
 								button.btn.btn-default(type="button" ng-click='removeForm()')
 									span#AddRemoveGlyph.glyphicon.glyphicon-minus
 						button#ButtonCenter(class='btn btn-primary', type='button', ng-click="reset()" ng-hide='edit.editSKU==true||edit.editName==true||edit.editDesc==true||edit.editLocation==true||showAdd==true||showRemove==true') OK
-						button#ButtonCenter(class='btn btn-primary', type='button', ng-click="reset()" ng-show='edit.editSKU==true||edit.editName==true||edit.editDesc==true||edit.editLocation==true') Submit
-						button#ButtonCenter(class='btn btn-primary', type='button', ng-click="reset()" ng-hide='showAdd==true||showRemove==true') Cancel
+						button#Buttons(class='btn btn-primary', type='button', ng-click="updateItem()" ng-show='edit.editSKU==true||edit.editName==true||edit.editDesc==true||edit.editLocation==true') Submit
+						button#Buttons(class='btn btn-primary', type='button', ng-click="reset()" ng-show='edit.editSKU==true||edit.editName==true||edit.editDesc==true||edit.editLocation==true') Cancel
 				div#prodForm.well.well-lg(ng-show="showAdd==true && showResults == true")
 					label Current Quantity:
 					input(type='text', ng-model="oneItem.Quantity" name='quantity', class='form-control', placeholder='Quantity Available',readonly)
@@ -85,7 +89,7 @@ block content
 					input(type='text', ng-model="temp.quantityToAdd" name='addQuantity', class='form-control', placeholder='Quantity to Add')
 					span
 					button#Buttons(class='btn btn-primary', type='button', ng-click="addQuantity()") Add
-					button#Buttons(class='btn btn-primary', type='button', ng-click="reset()") Cancel
+					button#Buttons(class='btn btn-primary', type='button', ng-click="cancelQuantityEdit()") Cancel
 					span
 				div#prodForm.column(ng-show="showRemove==true && showResults == true")
 					label Current Quantity:
@@ -93,7 +97,7 @@ block content
 					label Quantity to Remove:
 					input(type='text', ng-model="temp.quantityToRemove" name='removeQuantity', class='form-control', placeholder='Quantity to Remove')
 					button#Buttons(class='btn btn-primary', type='button', ng-click="removeQuantity()") Remove
-					button#Buttons(class='btn btn-primary', type='button', ng-click="reset()") Cancel
+					button#Buttons(class='btn btn-primary', type='button', ng-click="cancelQuantityEdit()") Cancel
 				span.clearfix
 			#message(ng-show="noResults == true")
 				h2.text-center.error-message No product found!	

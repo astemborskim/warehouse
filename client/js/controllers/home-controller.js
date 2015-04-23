@@ -9,6 +9,7 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 	$scope.showFind = true; //defaults
 	$scope.showAdd = false;
 	$scope.showRemove = false;
+	$scope.results={};
 
 	var Item = $resource('/api/item/:id', {}, {update : {method : 'PUT'}});
 
@@ -21,8 +22,11 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 			if(results.Product_Name == null){
 				$scope.noResults = true;
 				console.log('Item with specified SKU does not exist');
+				$scope.SKU = null;
+				document.getElementById('SKU').focus();
 			}
 			else{
+				$scope.results = results;
 				$scope.showResults = true;
 				$scope.noResults = false;
 				console.log('Product Found');
@@ -37,6 +41,16 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 		})
 	}
 
+	$scope.updateItem = function(){
+		var item = new Item($scope.oneItem);
+		console.log('results object :' + JSON.stringify($scope.results));
+		item.$update({id : $scope.results.SKU}, $scope.oneItem, function (err, result){
+			if(err){ console.log('ERROR: + err')}
+		})
+		console.log('oneItem object :' + JSON.stringify($scope.oneItem));
+
+	}
+
 	$scope.addQuantity = function(){
 		var currentQuantity = parseInt($scope.oneItem.Quantity);
 		var additionalQuantity = parseInt($scope.temp.quantityToAdd);
@@ -48,6 +62,8 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 			item.$update({id : $scope.oneItem.SKU}, $scope.oneItem, function (err, result){
 	 			if(err){console.log('ERROR!')}
 	    	});
+	    	$scope.temp.quantityToAdd = null;
+	    	$scope.results.Quantity = $scope.oneItem.Quantity;
 	    	$scope.findForm();
 	}
 
@@ -62,6 +78,8 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 			item.$update({id : $scope.oneItem.SKU}, $scope.oneItem, function (err, result){
 	 			if(err){console.log('ERROR!')}
 	    	});
+			$scope.temp.quantityToRemove = null;
+	    	$scope.results.Quantity = $scope.oneItem.Quantity;
 	    	$scope.findForm();
 	}
 
@@ -109,11 +127,31 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 		$scope.edit.editLocation = true;
 	}
 
-	$scope.cancelEdit = function(){
+	$scope.cancelSKUEdit = function(){
 		$scope.edit.editSKU = false;
+		$scope.oneItem.SKU = $scope.results.SKU;
+	}
+
+	$scope.cancelNameEdit = function(){
 		$scope.edit.editName = false;
+		$scope.oneItem.Product_Name = $scope.results.Product_Name;
+	}
+
+	$scope.cancelDescEdit = function(){
 		$scope.edit.editDesc = false;
+		$scope.oneItem.Product_Description = $scope.results.Product_Description;
+	}
+
+	$scope.cancelLocationEdit = function(){
 		$scope.edit.editLocation = false;
+		$scope.oneItem.Product_Location = $scope.results.Product_Location;
+	}
+
+	$scope.cancelQuantityEdit = function(){
+		$scope.showAdd = false;
+		$scope.showRemove = false;
+		$scope.temp.quantityToAdd = null;
+		$scope.temp.quantityToRemove = null;
 
 	}
 
