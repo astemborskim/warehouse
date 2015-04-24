@@ -13,7 +13,7 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 
 	var Item = $resource('/api/item/:id', {}, {update : {method : 'PUT'}});
 
-	$scope.findProduct = function(SKU){
+	$scope.findProduct = function(SKU, callback){
 	
 		var SKU = SKU.toString();
 		var item = new Item({'SKU' : SKU});
@@ -37,7 +37,7 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 				$scope.oneItem.Quantity = results.Quantity;
 				console.log($scope.oneItem);	
 			}
-			
+			callback();
 		})
 	}
 
@@ -48,7 +48,7 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 			if(err){ console.log('ERROR: + err')}
 		})
 		console.log('oneItem object :' + JSON.stringify($scope.oneItem));
-
+		$scope.findProduct($scope.oneItem.SKU, $scope.resetForm);
 	}
 
 	$scope.addQuantity = function(){
@@ -155,6 +155,14 @@ app.controller('homeController', ['$scope', '$resource', function ($scope, $reso
 
 	}
 
+	$scope.resetForm = function(){
+		$scope.cancelSKUEdit();
+		$scope.cancelNameEdit();
+		$scope.cancelDescEdit();
+		$scope.cancelLocationEdit();
+		$scope.cancelQuantityEdit();
+
+	}
 
 
 
